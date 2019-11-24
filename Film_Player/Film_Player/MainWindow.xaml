@@ -1,0 +1,17 @@
+﻿<Window x:Class="Film_Player.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Film_Player"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="1085" >
+    <Grid Margin="0,0,0,0">
+        <MediaElement x:Name="Me" HorizontalAlignment="Center" Height="576" Width="1027" Margin="0,15,0,0" VerticalAlignment="Top"  LoadedBehavior="Manual" Source="..\..\..\media\Gdynia Orłowo.mov"/>
+        <Button x:Name="StopBtn" Content="Stop" HorizontalAlignment="Left" Margin="862,606,0,0" VerticalAlignment="Top" Width="76" Click="StopBtn_Click"/>
+        <Button x:Name="PauseBtn" Content="Pause" HorizontalAlignment="Left" Margin="959,606,0,0" VerticalAlignment="Top" Width="75" Click="PauseBtn_Click"/>
+        <Button x:Name="StartBtn" Content="Start" HorizontalAlignment="Left" Margin="766,606,0,0" VerticalAlignment="Top" Width="74" Click="StartBtn_Click"/>
+        <Slider x:Name="VolumeSlider" HorizontalAlignment="Left" Margin="630,606,0,0" VerticalAlignment="Top" Width="106" Maximum="1" ValueChanged="VolumeSlider_ValueChanged" Value="0.3"/>
+
+    </Grid>
+</Window>
