@@ -6,12 +6,136 @@
         xmlns:local="clr-namespace:Film_Player"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1085" >
+    <Window.Resources>
+
+        <Style x:Key="SliderRepeatButton" TargetType="RepeatButton">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="IsTabStop" Value="false" />
+            <Setter Property="Focusable" Value="false" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border  BorderThickness="1" BorderBrush="Black" Background="Black" Height="3"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SliderRepeatButton1" TargetType="RepeatButton">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border SnapsToDevicePixels="True" Background="Green"  BorderThickness="2" BorderBrush="Red" Height="2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SliderRepeatButton2" TargetType="RepeatButton">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border SnapsToDevicePixels="True" Background="Green"  BorderThickness="2" BorderBrush="Green" Height="2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SliderThumb" TargetType="Thumb">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Rectangle Height="10" Width="3">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="M:\[ProgWin] Projekt\Film_Player\media\Thumb.png"></ImageBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <ControlTemplate x:Key="Slider"  TargetType="Slider">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Track Grid.Row="1" x:Name="PART_Track"   >
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource SliderRepeatButton1}"  Command="Slider.DecreaseLarge" />
+                    </Track.DecreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb Style="{StaticResource SliderThumb}"  />
+                    </Track.Thumb>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource SliderRepeatButton}" Command="Slider.IncreaseLarge" />
+                    </Track.IncreaseRepeatButton>
+                </Track>
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="Slider2"  TargetType="Slider">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Track Grid.Row="1" x:Name="PART_Track"   >
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource SliderRepeatButton2}"  Command="Slider.DecreaseLarge" />
+                    </Track.DecreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb Style="{StaticResource SliderThumb}"  />
+                    </Track.Thumb>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource SliderRepeatButton}" Command="Slider.IncreaseLarge" />
+                    </Track.IncreaseRepeatButton>
+                </Track>
+            </Grid>
+        </ControlTemplate>
+        <Style x:Key="Horizontal_Slider" TargetType="Slider">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Style.Triggers>
+                <Trigger Property="Orientation" Value="Horizontal">
+                    <Setter Property="MinHeight" Value="21" />
+                    <Setter Property="MinWidth" Value="104" />
+                    <Setter Property="Template" Value="{StaticResource Slider}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="Volume_Slider" TargetType="Slider">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Style.Triggers>
+                <Trigger Property="Orientation" Value="Horizontal">
+                    <Setter Property="MinHeight" Value="21" />
+                    <Setter Property="MinWidth" Value="104" />
+                    <Setter Property="Template" Value="{StaticResource Slider2}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid Margin="0,0,0,0">
-        <MediaElement x:Name="Me" HorizontalAlignment="Center" Height="576" Width="1027" Margin="0,15,0,0" VerticalAlignment="Top"  LoadedBehavior="Manual" Source="..\..\..\media\Gdynia Orłowo.mov"/>
+        <MediaElement x:Name="Me" HorizontalAlignment="Center" Height="576" Width="1027" Margin="0,15,0,0" VerticalAlignment="Top"  LoadedBehavior="Manual" Source="..\..\..\media\Gdynia Orłowo.mov" MediaOpened="Me_MediaOpened"/>
         <Button x:Name="StopBtn" Content="Stop" HorizontalAlignment="Left" Margin="862,606,0,0" VerticalAlignment="Top" Width="76" Click="StopBtn_Click"/>
         <Button x:Name="PauseBtn" Content="Pause" HorizontalAlignment="Left" Margin="959,606,0,0" VerticalAlignment="Top" Width="75" Click="PauseBtn_Click"/>
         <Button x:Name="StartBtn" Content="Start" HorizontalAlignment="Left" Margin="766,606,0,0" VerticalAlignment="Top" Width="74" Click="StartBtn_Click"/>
-        <Slider x:Name="VolumeSlider" HorizontalAlignment="Left" Margin="630,606,0,0" VerticalAlignment="Top" Width="106" Maximum="1" ValueChanged="VolumeSlider_ValueChanged" Value="0.3"/>
+        <Slider x:Name="VolumeSlider" HorizontalAlignment="Left" Style="{StaticResource Volume_Slider}" Margin="630,606,0,0" VerticalAlignment="Top" Width="106" Maximum="1" ValueChanged="VolumeSlider_ValueChanged" Value="0.3"/>
+        <Slider x:Name="PlaybackSlider" Style="{StaticResource Horizontal_Slider}"  HorizontalAlignment="Left" Margin="34,573,0,0" VerticalAlignment="Top" Width="1000" ValueChanged="PlaybackSlider_ValueChanged" PreviewMouseUp="PlaybackSlider_PreviewMouseUp" PreviewMouseDown="PlaybackSlider_PreviewMouseDown" Background="#00000000" Foreground="#FFB04747" OpacityMask="#FFEE2626" />
+
 
     </Grid>
+    
 </Window>
