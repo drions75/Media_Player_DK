@@ -101,7 +101,7 @@
                 </Track>
             </Grid>
         </ControlTemplate>
-        <Style x:Key="Horizontal_Slider" TargetType="Slider">
+        <Style x:Key="Horizontal_Slider1" TargetType="Slider">
             <Setter Property="Focusable" Value="False"/>
             <Setter Property="SnapsToDevicePixels" Value="true" />
             <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -133,7 +133,7 @@
         <Button x:Name="PauseBtn" Content="Pause" HorizontalAlignment="Left" Margin="959,606,0,0" VerticalAlignment="Top" Width="75" Click="PauseBtn_Click"/>
         <Button x:Name="StartBtn" Content="Start" HorizontalAlignment="Left" Margin="766,606,0,0" VerticalAlignment="Top" Width="74" Click="StartBtn_Click"/>
         <Slider x:Name="VolumeSlider" HorizontalAlignment="Left" Style="{StaticResource Volume_Slider}" Margin="630,606,0,0" VerticalAlignment="Top" Width="106" Maximum="1" ValueChanged="VolumeSlider_ValueChanged" Value="0.3"/>
-        <Slider x:Name="PlaybackSlider" Style="{StaticResource Horizontal_Slider}"  HorizontalAlignment="Left" Margin="34,573,0,0" VerticalAlignment="Top" Width="1000" ValueChanged="PlaybackSlider_ValueChanged" PreviewMouseUp="PlaybackSlider_PreviewMouseUp" PreviewMouseDown="PlaybackSlider_PreviewMouseDown" Background="#00000000" Foreground="#FFB04747" OpacityMask="#FFEE2626" />
+        <Slider x:Name="PlaybackSlider" Style="{StaticResource Horizontal_Slider1}"  HorizontalAlignment="Left" Margin="34,573,0,0" VerticalAlignment="Top" Width="1000" ValueChanged="PlaybackSlider_ValueChanged" PreviewMouseUp="PlaybackSlider_PreviewMouseUp" PreviewMouseDown="PlaybackSlider_PreviewMouseDown" Background="#00000000" Foreground="#FFB04747" OpacityMask="#FFEE2626" />
 
 
     </Grid>
