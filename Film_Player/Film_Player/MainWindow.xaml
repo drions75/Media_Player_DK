@@ -52,9 +52,9 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Thumb">
-                        <Rectangle Height="10" Width="3">
+                        <Rectangle Height="10" Width="6">
                             <Rectangle.Fill>
-                                <ImageBrush ImageSource="M:\[ProgWin] Projekt\Film_Player\media\Thumb.png"></ImageBrush>
+                                <ImageBrush ImageSource="C:\Media_Player_DK\Film_Player\media\Thumb.png"></ImageBrush>
                             </Rectangle.Fill>
                         </Rectangle>
                     </ControlTemplate>
@@ -127,15 +127,16 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid Margin="0,0,0,0">
-        <MediaElement x:Name="Me" HorizontalAlignment="Center" Height="576" Width="1027" Margin="0,15,0,0" VerticalAlignment="Top"  LoadedBehavior="Manual" Source="..\..\..\media\Gdynia Orłowo.mov" MediaOpened="Me_MediaOpened"/>
-        <Button x:Name="StopBtn" Content="Stop" HorizontalAlignment="Left" Margin="862,606,0,0" VerticalAlignment="Top" Width="76" Click="StopBtn_Click"/>
-        <Button x:Name="PauseBtn" Content="Pause" HorizontalAlignment="Left" Margin="959,606,0,0" VerticalAlignment="Top" Width="75" Click="PauseBtn_Click"/>
-        <Button x:Name="StartBtn" Content="Start" HorizontalAlignment="Left" Margin="766,606,0,0" VerticalAlignment="Top" Width="74" Click="StartBtn_Click"/>
-        <Slider x:Name="VolumeSlider" HorizontalAlignment="Left" Style="{StaticResource Volume_Slider}" Margin="630,606,0,0" VerticalAlignment="Top" Width="106" Maximum="1" ValueChanged="VolumeSlider_ValueChanged" Value="0.3"/>
-        <Slider x:Name="PlaybackSlider" Style="{StaticResource Horizontal_Slider1}"  HorizontalAlignment="Left" Margin="34,573,0,0" VerticalAlignment="Top" Width="1000" ValueChanged="PlaybackSlider_ValueChanged" PreviewMouseUp="PlaybackSlider_PreviewMouseUp" PreviewMouseDown="PlaybackSlider_PreviewMouseDown" Background="#00000000" Foreground="#FFB04747" OpacityMask="#FFEE2626" />
+    <Grid Margin="0,0,0,0" Background="#FF302B2B">
+        <MediaElement x:Name="Me" HorizontalAlignment="Center" Height="576" Width="1027" Margin="0,15,0,0" VerticalAlignment="Top"  LoadedBehavior="Manual" Source="C:\Media_Player_DK\Film_Player\media\Gdynia Orłowo.mov" MediaOpened="Me_MediaOpened"/>
+        <Button x:Name="StopBtn" Content="Stop" HorizontalAlignment="Left" Margin="862,638,0,0" VerticalAlignment="Top" Width="76" Click="StopBtn_Click"/>
+        <Button x:Name="PauseBtn" Content="Pause" HorizontalAlignment="Left" Margin="959,638,0,0" VerticalAlignment="Top" Width="75" Click="PauseBtn_Click"/>
+        <Button x:Name="StartBtn" Content="Start" HorizontalAlignment="Left" Margin="766,638,0,0" VerticalAlignment="Top" Width="74" Click="StartBtn_Click"/>
+        <Slider x:Name="VolumeSlider" HorizontalAlignment="Left" Style="{StaticResource Volume_Slider}" Margin="630,638,0,0" VerticalAlignment="Top" Width="106" Maximum="1" ValueChanged="VolumeSlider_ValueChanged" Value="0.3"/>
+        <Slider x:Name="PlaybackSlider" Style="{StaticResource Horizontal_Slider1}"  HorizontalAlignment="Left" Margin="25,591,0,0" VerticalAlignment="Top" Width="977" ValueChanged="PlaybackSlider_ValueChanged" PreviewMouseUp="PlaybackSlider_PreviewMouseUp" PreviewMouseDown="PlaybackSlider_PreviewMouseDown" Background="#00000000" Foreground="#FFB04747" OpacityMask="#FFEE2626" />
+        <Label x:Name="TimePlay" Content="00:00" HorizontalAlignment="Left" Height="26" Margin="1002,588,0,0" VerticalAlignment="Top" Width="56" FontFamily="Tw Cen MT" FontWeight="Bold" FontSize="18" Background="{x:Null}" Foreground="White"/>
 
 
     </Grid>
-    
+
 </Window>

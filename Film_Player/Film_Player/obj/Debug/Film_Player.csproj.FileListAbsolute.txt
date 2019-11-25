@@ -43,3 +43,18 @@ M:\[ProgWin] Projekt\Film_Player\Film_Player\obj\Debug\Film_Player.csproj.Genera
 M:\[ProgWin] Projekt\Film_Player\Film_Player\obj\Debug\Film_Player.csproj.CoreCompileInputs.cache
 M:\[ProgWin] Projekt\Film_Player\Film_Player\obj\Debug\Film_Player.exe
 M:\[ProgWin] Projekt\Film_Player\Film_Player\obj\Debug\Film_Player.pdb
+C:\Media_Player_DK\Film_Player\Film_Player\bin\Debug\Film_Player.exe.config
+C:\Media_Player_DK\Film_Player\Film_Player\bin\Debug\Film_Player.exe
+C:\Media_Player_DK\Film_Player\Film_Player\bin\Debug\Film_Player.pdb
+C:\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.csprojAssemblyReference.cache
+C:\Media_Player_DK\Film_Player\Film_Player\obj\Debug\MainWindow.g.cs
+C:\Media_Player_DK\Film_Player\Film_Player\obj\Debug\App.g.cs
+C:\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player_MarkupCompile.cache
+C:\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player_MarkupCompile.lref
+C:\Media_Player_DK\Film_Player\Film_Player\obj\Debug\MainWindow.baml
+C:\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.g.resources
+C:\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.Properties.Resources.resources
+C:\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.csproj.GenerateResource.cache
+C:\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.csproj.CoreCompileInputs.cache
+C:\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.exe
+C:\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.pdb

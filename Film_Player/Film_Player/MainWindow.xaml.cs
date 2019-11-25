@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Film_Player
@@ -29,11 +18,18 @@ namespace Film_Player
             timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
             timer.Tick += new EventHandler(Timer_Tick);
         }
+
+        void PlaybackTimer()
+        {
+            timer.Start();
+        }
         private void Timer_Tick(object sender, EventArgs e)
         {
             if(!PlaybackSliderDragging)
             {
                 PlaybackSlider.Value = Me.Position.TotalMilliseconds;
+                if (Me.NaturalDuration.HasTimeSpan)
+                    TimePlay.Content = String.Format("{0} / {1}", Me.Position.ToString(@"mm\:ss"), Me.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
             }
         }
 
@@ -41,7 +37,8 @@ namespace Film_Player
         {
             //Me.SpeedRatio = SpeedSlider.Value;
             Me.Volume = VolumeSlider.Value;
-            timer.Start();
+            PlaybackTimer();
+            //TimePlay.Content ;
             Me.Play();
             
         }
@@ -78,6 +75,7 @@ namespace Film_Player
         private void PlaybackSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             PlaybackSliderDragging = false;
+            PlaybackTimer();
             Me.Play();
         }
 

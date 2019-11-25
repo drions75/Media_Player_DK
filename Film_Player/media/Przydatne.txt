@@ -1,1 +1,2 @@
 https://stackoverflow.com/questions/25136114/custom-wpf-slider-with-image-as-thumb
+https://www.wpf-tutorial.com/audio-video/how-to-creating-a-complete-audio-video-player/
