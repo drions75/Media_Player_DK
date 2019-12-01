@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Film_Player"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1085" >
+        Title="MainWindow" Height="730" Width="1085" >
     <Window.Resources>
 
         <Style x:Key="SliderRepeatButton" TargetType="RepeatButton">
@@ -127,16 +127,37 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid Margin="0,0,0,0" Background="#FF302B2B">
-        <MediaElement x:Name="Me" HorizontalAlignment="Center" Height="576" Width="1027" Margin="0,15,0,0" VerticalAlignment="Top"  LoadedBehavior="Manual" Source="M:\[ProgWin] Projekt\Media_Player_DK\Film_Player\media\Gdynia Orłowo.mov" MediaOpened="Me_MediaOpened"/>
-        <Button x:Name="StopBtn" Content="Stop" HorizontalAlignment="Left" Margin="862,638,0,0" VerticalAlignment="Top" Width="76" Click="StopBtn_Click"/>
-        <Button x:Name="PauseBtn" Content="Pause" HorizontalAlignment="Left" Margin="959,638,0,0" VerticalAlignment="Top" Width="75" Click="PauseBtn_Click"/>
-        <Button x:Name="StartBtn" Content="Start" HorizontalAlignment="Left" Margin="766,638,0,0" VerticalAlignment="Top" Width="74" Click="StartBtn_Click"/>
-        <Slider x:Name="VolumeSlider" HorizontalAlignment="Left" Style="{StaticResource Volume_Slider}" Margin="630,638,0,0" VerticalAlignment="Top" Width="106" Maximum="1" ValueChanged="VolumeSlider_ValueChanged" Value="0.3"/>
-        <Slider x:Name="SpeedSlider" HorizontalAlignment="Left" Style="{StaticResource Volume_Slider}" Margin="32,636,0,0" VerticalAlignment="Top" Width="413" Maximum="1" ValueChanged="SpeedSlider_ValueChanged" Value="1" Height="23" PreviewMouseDown="SpeedSlider_PreviewMouseDown" PreviewMouseUp="SpeedSlider_PreviewMouseUp" SnapsToDevicePixels="False" OverridesDefaultStyle="False"/>
-        <Slider x:Name="PlaybackSlider" Style="{StaticResource Horizontal_Slider1}"  HorizontalAlignment="Left" Margin="25,591,0,0" VerticalAlignment="Top" Width="977" ValueChanged="PlaybackSlider_ValueChanged" PreviewMouseUp="PlaybackSlider_PreviewMouseUp" PreviewMouseDown="PlaybackSlider_PreviewMouseDown" Background="#00000000" Foreground="#FFB04747" OpacityMask="#FFEE2626" />
-        <Label x:Name="TimePlay" Content="00:00" HorizontalAlignment="Left" Height="26" Margin="1002,588,0,0" VerticalAlignment="Top" Width="56" FontFamily="Tw Cen MT" FontWeight="Bold" FontSize="18" Background="{x:Null}" Foreground="White"/>
 
+    <Grid Margin="0,0,0,0" Background="#FF302B2B">
+        <Grid>
+            <Menu Height="20" VerticalAlignment="Top"  Background="Azure">
+                <MenuItem Header="Plik" Background="Azure" Height="20" >
+                    <MenuItem Header="_Otworz film..." Click="OpenFile_Click" FontStyle="Normal" />
+                    <Separator></Separator>
+                    <MenuItem Header="Wyjdź" Click="CloseApp_Click" FontStyle="Normal" FontWeight="Bold"/>
+                </MenuItem>
+
+
+            </Menu>
+        </Grid>
+        <Grid Margin="0,20,0,0">
+            <MediaElement x:Name="Me" Margin="25,15,25,88"  LoadedBehavior="Manual" Source="" MediaOpened="Me_MediaOpened"/>
+            <Slider x:Name="PlaybackSlider" Style="{StaticResource Horizontal_Slider1}" Margin="25,591,25,65" VerticalAlignment="Bottom"  ValueChanged="PlaybackSlider_ValueChanged" PreviewMouseUp="PlaybackSlider_PreviewMouseUp" PreviewMouseDown="PlaybackSlider_PreviewMouseDown" Background="#00000000" Foreground="#FFB04747" OpacityMask="#FFEE2626" MinWidth="975" MaxWidth="1800" />
+
+            <Grid VerticalAlignment="Bottom" Margin="0,0,0,10" HorizontalAlignment="Center">
+
+                <Button x:Name="StopBtn" Content="Stop" HorizontalAlignment="Left" Margin="862,638,0,0" VerticalAlignment="Top" Width="76" Click="StopBtn_Click"/>
+                <Button x:Name="PauseBtn" Content="Pause" HorizontalAlignment="Left" Margin="959,638,0,0" VerticalAlignment="Top" Width="75" Click="PauseBtn_Click"/>
+                <Button x:Name="StartBtn" Content="Start" HorizontalAlignment="Left" Margin="766,638,0,0" VerticalAlignment="Top" Width="74" Click="StartBtn_Click"/>
+                <Slider x:Name="VolumeSlider" HorizontalAlignment="Left" Style="{StaticResource Volume_Slider}" Margin="630,638,0,0" VerticalAlignment="Top" Width="106" Maximum="1" ValueChanged="VolumeSlider_ValueChanged" Value="0.3"/>
+                <Slider x:Name="SpeedSlider" HorizontalAlignment="Left" Style="{StaticResource Volume_Slider}" Margin="32,636,0,0" VerticalAlignment="Top" Width="276" Maximum="2" ValueChanged="SpeedSlider_ValueChanged" Value="1" Height="23" PreviewMouseDown="SpeedSlider_PreviewMouseDown" PreviewMouseUp="SpeedSlider_PreviewMouseUp" SnapsToDevicePixels="False" OverridesDefaultStyle="False" Minimum="0.5" SmallChange="0.5" Interval="30" MouseDoubleClick="Reset_Speed"/>
+                <Label x:Name="TimePlay" Content="00:00" HorizontalAlignment="Center" Height="29" Margin="489,609,489,21" VerticalAlignment="Center" Width="56" FontFamily="Tw Cen MT" FontWeight="Bold" FontSize="18" Background="{x:Null}" Foreground="White"/>
+                <Label Content="Prędkość" HorizontalAlignment="Left" Margin="32,612,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <Label Content="Głośność" HorizontalAlignment="Left" Margin="652,612,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <Label x:Name="SpeedPlay" Content="1.0" HorizontalAlignment="Left" Margin="325,633,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="26"/>
+
+            </Grid>
+        </Grid>
 
     </Grid>
 

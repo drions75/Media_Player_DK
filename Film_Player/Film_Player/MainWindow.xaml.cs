@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -12,6 +13,8 @@ namespace Film_Player
     {
         DispatcherTimer timer = new DispatcherTimer();
         bool PlaybackSliderDragging = false;
+        String trackPath = "";
+
         public MainWindow()
         {
             InitializeComponent();
@@ -42,7 +45,57 @@ namespace Film_Player
             Me.Play();
             
         }
+        private void OpenFile_Click(object sender, RoutedEventArgs e)
+        {
+            Nullable<bool> result;
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = "";
+            dlg.DefaultExt = ".mov";
+            dlg.Filter = ".mov|*.mov|.wmv|*.wmv|All files (*.*)|*.*";
+            dlg.CheckFileExists = true;
+            result = dlg.ShowDialog();
+            if (result == true)
+            {
+                trackPath = dlg.FileName;
+                PlayTrack();
+            }
+        }
 
+        private void PlayTrack()
+        {
+            bool ok = true;
+            FileInfo fi = null;
+            Uri src;
+            try
+            {
+                fi = new FileInfo(trackPath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                ok = false;
+            }
+
+            if (ok)
+            {
+                //Sprawdzam czy plik istnieje
+                if (!fi.Exists)
+                {
+                    MessageBox.Show("Nie odnaleziono " + trackPath);
+                }
+                else
+                {
+                    src = new Uri(trackPath);
+                    Me.Source = src;
+                    // assign the defaults (from slider positions) when a track starts playing
+                    Me.SpeedRatio = SpeedSlider.Value;
+                    Me.Volume = VolumeSlider.Value;
+                    
+                    Me.Play();
+                    timer.Start();
+                }
+            }
+        }
         private void StopBtn_Click(object sender, RoutedEventArgs e)
         {
             Me.Stop();
@@ -69,7 +122,7 @@ namespace Film_Player
         private void Me_MediaOpened(object sender, RoutedEventArgs e)
         {
             PlaybackSlider.Maximum = Me.NaturalDuration.TimeSpan.TotalMilliseconds;
-            SpeedSlider.Value =1;
+            SpeedSlider.Value = 1;
         }
 
         private void PlaybackSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -87,17 +140,33 @@ namespace Film_Player
 
         private void SpeedSlider_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            
             Me.Pause();
+            
         }
 
         private void SpeedSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
+            SpeedPlay.Content = SpeedSlider.Value;
             Me.Play();
         }
 
         private void SpeedSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             Me.SpeedRatio = SpeedSlider.Value;
+        }
+
+      
+
+        private void CloseApp_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Reset_Speed(object sender, MouseButtonEventArgs e)
+        {
+            SpeedSlider.Value = 1;
+            SpeedPlay.Content = SpeedSlider.Value;
         }
     }
 }
