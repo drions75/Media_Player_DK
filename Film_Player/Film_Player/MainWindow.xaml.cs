@@ -35,7 +35,7 @@ namespace Film_Player
 
         private void StartBtn_Click(object sender, RoutedEventArgs e)
         {
-            //Me.SpeedRatio = SpeedSlider.Value;
+            Me.SpeedRatio = SpeedSlider.Value;
             Me.Volume = VolumeSlider.Value;
             PlaybackTimer();
             //TimePlay.Content ;
@@ -69,7 +69,7 @@ namespace Film_Player
         private void Me_MediaOpened(object sender, RoutedEventArgs e)
         {
             PlaybackSlider.Maximum = Me.NaturalDuration.TimeSpan.TotalMilliseconds;
-            //SpeedSlider.Value =1;
+            SpeedSlider.Value =1;
         }
 
         private void PlaybackSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -85,6 +85,19 @@ namespace Film_Player
             Me.Stop();
         }
 
-       
+        private void SpeedSlider_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Me.Pause();
+        }
+
+        private void SpeedSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Me.Play();
+        }
+
+        private void SpeedSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Me.SpeedRatio = SpeedSlider.Value;
+        }
     }
 }
