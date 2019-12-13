@@ -52,9 +52,9 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Thumb">
-                        <Rectangle Height="10" Width="6">
+                        <Rectangle Height="10" Width="8">
                             <Rectangle.Fill>
-                                <ImageBrush ImageSource="M:\[ProgWin] Projekt\Media_Player_DK\Film_Player\media\Thumb.png"></ImageBrush>
+                                <ImageBrush ImageSource="C:\Media_Player_DK\Film_Player\media\Thumb.png"></ImageBrush>
                             </Rectangle.Fill>
                         </Rectangle>
                     </ControlTemplate>
@@ -142,15 +142,14 @@
         </Grid>
         <Grid Margin="0,20,0,0">
             <MediaElement x:Name="Me" Margin="25,15,25,88"  LoadedBehavior="Manual" Source="" MediaOpened="Me_MediaOpened"/>
-            <Slider x:Name="PlaybackSlider" Style="{StaticResource Horizontal_Slider1}" Margin="25,591,25,65" VerticalAlignment="Bottom"  ValueChanged="PlaybackSlider_ValueChanged" PreviewMouseUp="PlaybackSlider_PreviewMouseUp" PreviewMouseDown="PlaybackSlider_PreviewMouseDown" Background="#00000000" Foreground="#FFB04747" OpacityMask="#FFEE2626" MinWidth="975" MaxWidth="1800" />
+            <Slider IsMoveToPointEnabled="True" x:Name="PlaybackSlider" Style="{StaticResource Horizontal_Slider1}" Margin="25,591,25,65" VerticalAlignment="Bottom"  ValueChanged="PlaybackSlider_ValueChanged" PreviewMouseUp="PlaybackSlider_PreviewMouseUp" PreviewMouseDown="PlaybackSlider_PreviewMouseDown" Background="#00000000" Foreground="#FFB04747" OpacityMask="#FFEE2626" MinWidth="975" MaxWidth="1800" MouseDown="change_Position" />
 
             <Grid VerticalAlignment="Bottom" Margin="0,0,0,10" HorizontalAlignment="Center">
 
-                <Button x:Name="StopBtn" Content="Stop" HorizontalAlignment="Left" Margin="862,638,0,0" VerticalAlignment="Top" Width="76" Click="StopBtn_Click"/>
-                <Button x:Name="PauseBtn" Content="Pause" HorizontalAlignment="Left" Margin="959,638,0,0" VerticalAlignment="Top" Width="75" Click="PauseBtn_Click"/>
-                <Button x:Name="StartBtn" Content="Start" HorizontalAlignment="Left" Margin="766,638,0,0" VerticalAlignment="Top" Width="74" Click="StartBtn_Click"/>
-                <Slider x:Name="VolumeSlider" HorizontalAlignment="Left" Style="{StaticResource Volume_Slider}" Margin="630,638,0,0" VerticalAlignment="Top" Width="106" Maximum="1" ValueChanged="VolumeSlider_ValueChanged" Value="0.3"/>
-                <Slider x:Name="SpeedSlider" HorizontalAlignment="Left" Style="{StaticResource Volume_Slider}" Margin="32,636,0,0" VerticalAlignment="Top" Width="276" Maximum="2" ValueChanged="SpeedSlider_ValueChanged" Value="1" Height="23" PreviewMouseDown="SpeedSlider_PreviewMouseDown" PreviewMouseUp="SpeedSlider_PreviewMouseUp" SnapsToDevicePixels="False" OverridesDefaultStyle="False" Minimum="0.5" SmallChange="0.5" Interval="30" MouseDoubleClick="Reset_Speed"/>
+                <Button x:Name="StopBtn" Content="Od nowa" HorizontalAlignment="Left" Margin="862,638,0,0" VerticalAlignment="Top" Width="76" Click="StopBtn_Click" Background="#FF5C5C5C" Foreground="White"/>
+                <Button x:Name="StartBtn" Content="Start" HorizontalAlignment="Left" Margin="766,638,0,0" VerticalAlignment="Top" Width="74" Click="StartBtn_Click" Background="#FF5C5C5C" Foreground="White"/>
+                <Slider x:Name="VolumeSlider" IsMoveToPointEnabled="True" HorizontalAlignment="Left" Style="{StaticResource Volume_Slider}" Margin="630,638,0,0" VerticalAlignment="Top" Width="106" Maximum="1" ValueChanged="VolumeSlider_ValueChanged" Value="0.3" MouseWheel="volume_Wheel"/>
+                <Slider x:Name="SpeedSlider"  IsMoveToPointEnabled="True" HorizontalAlignment="Left" Style="{StaticResource Volume_Slider}" Margin="32,636,0,0" VerticalAlignment="Top" Width="276" Maximum="2" ValueChanged="SpeedSlider_ValueChanged" Value="1" Height="23" PreviewMouseDown="SpeedSlider_PreviewMouseDown" PreviewMouseUp="SpeedSlider_PreviewMouseUp" SnapsToDevicePixels="False" OverridesDefaultStyle="False" Minimum="0.5" SmallChange="0.5" Interval="30" MouseDoubleClick="Reset_Speed"/>
                 <Label x:Name="TimePlay" Content="00:00" HorizontalAlignment="Center" Height="29" Margin="489,609,489,21" VerticalAlignment="Center" Width="56" FontFamily="Tw Cen MT" FontWeight="Bold" FontSize="18" Background="{x:Null}" Foreground="White"/>
                 <Label Content="Prędkość" HorizontalAlignment="Left" Margin="32,612,0,0" VerticalAlignment="Top" Foreground="White"/>
                 <Label Content="Głośność" HorizontalAlignment="Left" Margin="652,612,0,0" VerticalAlignment="Top" Foreground="White"/>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -14,6 +15,8 @@ namespace Film_Player
         DispatcherTimer timer = new DispatcherTimer();
         bool PlaybackSliderDragging = false;
         String trackPath = "";
+        public bool FlagaPlayStop = true;
+        
 
         public MainWindow()
         {
@@ -40,10 +43,27 @@ namespace Film_Player
         {
             Me.SpeedRatio = SpeedSlider.Value;
             Me.Volume = VolumeSlider.Value;
+            PrzelacznikStop_Play();
+            
             PlaybackTimer();
             //TimePlay.Content ;
-            Me.Play();
+            //Me.Play();
             
+        }
+
+        public void PrzelacznikStop_Play(bool status = true)
+        {
+            FlagaPlayStop = !FlagaPlayStop;
+            if (FlagaPlayStop)
+            {
+                Me.Play();
+                StartBtn.Content = "Pause";
+            }
+            else
+            {
+                StartBtn.Content = "Start";
+                Me.Pause();
+            }
         }
         private void OpenFile_Click(object sender, RoutedEventArgs e)
         {
@@ -58,6 +78,7 @@ namespace Film_Player
             {
                 trackPath = dlg.FileName;
                 PlayTrack();
+                StartBtn.Content = "Pause";
             }
         }
 
@@ -99,12 +120,11 @@ namespace Film_Player
         private void StopBtn_Click(object sender, RoutedEventArgs e)
         {
             Me.Stop();
+            FlagaPlayStop = false;
+            StartBtn.Content = "Start";
         }
 
-        private void PauseBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Me.Pause();
-        }
+       
 
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -113,6 +133,7 @@ namespace Film_Player
 
         private void PlaybackSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            
             if(PlaybackSliderDragging)
             {
                 Me.Position = TimeSpan.FromMilliseconds(PlaybackSlider.Value);
@@ -167,6 +188,17 @@ namespace Film_Player
         {
             SpeedSlider.Value = 1;
             SpeedPlay.Content = SpeedSlider.Value;
+        }
+
+        private void volume_Wheel(object sender, MouseWheelEventArgs e)
+        {
+            Me.Volume += (e.Delta > 0) ? 0.1 : -0.1;
+            VolumeSlider.Value = Me.Volume;
+        }
+
+        private void change_Position(object sender, MouseButtonEventArgs e)
+        {
+            //PlaybackSlider.Value = 
         }
     }
 }
