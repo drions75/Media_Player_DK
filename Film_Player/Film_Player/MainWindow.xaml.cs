@@ -2,21 +2,23 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
+using System.Windows.Media.Imaging;
 
 namespace Film_Player
 {
-    /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
-    /// </summary>
+    
     public partial class MainWindow : Window
     {
         DispatcherTimer timer = new DispatcherTimer();
         bool PlaybackSliderDragging = false;
         String trackPath = "";
         public bool FlagaPlayStop = true;
-        
+
+        //RenderTargetBitmap bmp = new RenderTargetBitmap(180, 180, 120, 96, PixelFormats.Pbgra32);
 
         public MainWindow()
         {
@@ -150,11 +152,24 @@ namespace Film_Player
         {
             PlaybackSliderDragging = false;
             PlaybackTimer();
-            Me.Play();
+            if (FlagaPlayStop)
+            {
+                Me.Play();
+            }
+            
         }
 
         private void PlaybackSlider_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                var thumb = sender as Thumb;
+
+                Point pos = e.GetPosition(PlaybackSlider);
+                double d = 1.0d / PlaybackSlider.ActualWidth * pos.X;
+                PlaybackSlider.Value = PlaybackSlider.Maximum * d;
+
+            }
             PlaybackSliderDragging = true;
             Me.Stop();
         }
@@ -199,6 +214,11 @@ namespace Film_Player
         private void change_Position(object sender, MouseButtonEventArgs e)
         {
             //PlaybackSlider.Value = 
+        }
+
+        private void Scaling_Click(object sender, RoutedEventArgs e)
+        {
+            RenderOptions.SetBitmapScalingMode(Me, BitmapScalingMode.LowQuality);
         }
     }
 }
