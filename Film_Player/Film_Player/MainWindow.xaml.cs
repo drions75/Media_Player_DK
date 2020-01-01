@@ -17,6 +17,7 @@ namespace Film_Player
         bool PlaybackSliderDragging = false;
         String trackPath = "";
         public bool FlagaPlayStop = true;
+        public double speedRatioValue=1;
 
         //RenderTargetBitmap bmp = new RenderTargetBitmap(180, 180, 120, 96, PixelFormats.Pbgra32);
 
@@ -43,7 +44,7 @@ namespace Film_Player
 
         private void StartBtn_Click(object sender, RoutedEventArgs e)
         {
-            Me.SpeedRatio = SpeedSlider.Value;
+            Me.SpeedRatio = speedRatioValue;
             Me.Volume = VolumeSlider.Value;
             PrzelacznikStop_Play();
             
@@ -55,6 +56,7 @@ namespace Film_Player
 
         public void PrzelacznikStop_Play(bool status = true)
         {
+            
             FlagaPlayStop = !FlagaPlayStop;
             if (FlagaPlayStop)
             {
@@ -80,7 +82,8 @@ namespace Film_Player
             {
                 trackPath = dlg.FileName;
                 PlayTrack();
-                StartBtn.Content = "Pause";
+                
+                //StartBtn.Content = "Start";
             }
         }
 
@@ -111,22 +114,30 @@ namespace Film_Player
                     src = new Uri(trackPath);
                     Me.Source = src;
                     // assign the defaults (from slider positions) when a track starts playing
-                    Me.SpeedRatio = SpeedSlider.Value;
+                    Me.SpeedRatio = speedRatioValue;
                     Me.Volume = VolumeSlider.Value;
                     
                     Me.Play();
                     timer.Start();
+                    FlagaPlayStop = !FlagaPlayStop;
+                    Me.Pause();
+
                 }
             }
         }
         private void StopBtn_Click(object sender, RoutedEventArgs e)
         {
+            
             Me.Stop();
+            Me.Play();
             FlagaPlayStop = false;
             StartBtn.Content = "Start";
+            Me.Stop();
+
         }
 
-       
+        
+
 
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -145,7 +156,7 @@ namespace Film_Player
         private void Me_MediaOpened(object sender, RoutedEventArgs e)
         {
             PlaybackSlider.Maximum = Me.NaturalDuration.TimeSpan.TotalMilliseconds;
-            SpeedSlider.Value = 1;
+            speedRatioValue = 1;
         }
 
         private void PlaybackSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -173,7 +184,7 @@ namespace Film_Player
             PlaybackSliderDragging = true;
             Me.Stop();
         }
-
+/*
         private void SpeedSlider_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             
@@ -192,33 +203,57 @@ namespace Film_Player
             Me.SpeedRatio = SpeedSlider.Value;
         }
 
-      
+      */
 
         private void CloseApp_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-
+        /*
         private void Reset_Speed(object sender, MouseButtonEventArgs e)
         {
             SpeedSlider.Value = 1;
             SpeedPlay.Content = SpeedSlider.Value;
         }
-
+        */
         private void volume_Wheel(object sender, MouseWheelEventArgs e)
         {
             Me.Volume += (e.Delta > 0) ? 0.1 : -0.1;
             VolumeSlider.Value = Me.Volume;
         }
 
-        private void change_Position(object sender, MouseButtonEventArgs e)
-        {
-            //PlaybackSlider.Value = 
-        }
-
+       
         private void Scaling_Click(object sender, RoutedEventArgs e)
         {
             RenderOptions.SetBitmapScalingMode(Me, BitmapScalingMode.LowQuality);
+        }
+
+        private void resetSpeed_Click(object sender, RoutedEventArgs e)
+        {
+            speedRatioValue = 1;
+            SpeedPlay.Content = speedRatioValue;
+            Me.SpeedRatio = speedRatioValue;
+        }
+
+        private void halfSpeed_Click(object sender, RoutedEventArgs e)
+        {
+            speedRatioValue = 0.5;
+            SpeedPlay.Content = speedRatioValue;
+            Me.SpeedRatio = speedRatioValue;
+        }
+
+        private void OneHalfSpeed_Click(object sender, RoutedEventArgs e)
+        {
+            speedRatioValue = 1.5;
+            SpeedPlay.Content = speedRatioValue;
+            Me.SpeedRatio = speedRatioValue;
+        }
+
+        private void twoSpeed_Click(object sender, RoutedEventArgs e)
+        {
+            speedRatioValue = 2.0;
+            SpeedPlay.Content = speedRatioValue;
+            Me.SpeedRatio = speedRatioValue;
         }
     }
 }
