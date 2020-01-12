@@ -17,6 +17,7 @@ namespace Film_Player
         bool PlaybackSliderDragging = false;
         String trackPath = "";
         public bool FlagaPlayStop = true;
+        public bool FlagaPlaylista = true;
         public double speedRatioValue=1;
 
         //RenderTargetBitmap bmp = new RenderTargetBitmap(180, 180, 120, 96, PixelFormats.Pbgra32);
@@ -49,44 +50,42 @@ namespace Film_Player
             PrzelacznikStop_Play();
             
             PlaybackTimer();
+
+           
+                
+
+            //PlayTrack();
+            //Me.Play();
+            //Me.Stop();
+
             //TimePlay.Content ;
             //Me.Play();
-            
-        }
 
-        public void PrzelacznikStop_Play(bool status = true)
+        }
+        private void Load_Playlist_Double_Click(object sender, MouseButtonEventArgs e)
         {
-            
-            FlagaPlayStop = !FlagaPlayStop;
-            if (FlagaPlayStop)
+            if (playlistBox.Items.Count > 0)
             {
-                Me.Play();
-                StartBtn.Content = "Pause";
-            }
-            else
-            {
-                StartBtn.Content = "Start";
-                Me.Pause();
+               PlayPlaylist();
+               Me.Play();
+               PrzelacznikStop_Play();
             }
         }
-        private void OpenFile_Click(object sender, RoutedEventArgs e)
+        private void PlayPlaylist()
         {
-            Nullable<bool> result;
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.FileName = "";
-            dlg.DefaultExt = ".mov";
-            dlg.Filter = ".mov|*.mov|.wmv|*.wmv|All files (*.*)|*.*";
-            dlg.CheckFileExists = true;
-            result = dlg.ShowDialog();
-            if (result == true)
+            int selectedItemIndex = -1;
+            if (playlistBox.Items.Count > 0)
             {
-                trackPath = dlg.FileName;
-                PlayTrack();
-                
-                //StartBtn.Content = "Start";
+                selectedItemIndex = playlistBox.SelectedIndex;
+                if (selectedItemIndex > -1)
+                {
+                    trackPath = playlistBox.Items[selectedItemIndex].ToString();
+                    TrackPlay.Content = trackPath;
+                    PlayTrack();
+                }
             }
-        }
 
+        }
         private void PlayTrack()
         {
             bool ok = true;
@@ -116,7 +115,7 @@ namespace Film_Player
                     // assign the defaults (from slider positions) when a track starts playing
                     Me.SpeedRatio = speedRatioValue;
                     Me.Volume = VolumeSlider.Value;
-                    
+
                     Me.Play();
                     timer.Start();
                     FlagaPlayStop = !FlagaPlayStop;
@@ -125,9 +124,70 @@ namespace Film_Player
                 }
             }
         }
-        private void StopBtn_Click(object sender, RoutedEventArgs e)
+        public void PrzelacznikStop_Play(bool status = true)
         {
             
+            FlagaPlayStop = !FlagaPlayStop;
+            if (FlagaPlayStop)
+            {
+                Me.Play();
+                StartBtn.Content = "Pause";
+            }
+            else
+            {
+                StartBtn.Content = "Start";
+                Me.Pause();
+            }
+        }
+        private void OpenFile_Click(object sender, RoutedEventArgs e)
+        {
+            Nullable<bool> result;
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = "";
+            dlg.DefaultExt = ".mov";
+            dlg.Filter = ".mov|*.mov|.wmv|*.wmv|All files (*.*)|*.*";
+            dlg.CheckFileExists = true;
+            result = dlg.ShowDialog();
+            if (result == true)
+            {
+                playlistBox.Items.Clear();
+                playlistBox.Visibility = Visibility.Hidden;
+                trackPath = dlg.FileName;
+                TrackPlay.Content = trackPath;
+                PlayTrack();
+                Me.Play();
+                Me.Stop();
+                //StartBtn.Content = "Start";
+            }
+        }
+        private void OpenFolder_Click(object sender, RoutedEventArgs e)
+        {
+            String folderpath = "";
+            string[] files;
+
+            System.Windows.Forms.FolderBrowserDialog fd = new System.Windows.Forms.FolderBrowserDialog();
+            System.Windows.Forms.DialogResult result = fd.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                folderpath = fd.SelectedPath;
+            }
+            if (folderpath != "")
+            {
+                playlistBox.Items.Clear();
+                playlistBox.Visibility = Visibility.Visible;
+                files = Directory.GetFiles(folderpath, "*.mp4");
+                foreach (string fn in files)
+                {
+                    playlistBox.Items.Add(fn);
+                }
+                playlistBox.SelectedIndex = 0;
+                FlagaPlaylista = true;
+            }
+        }
+       
+        private void StopBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //OD NOWA
             Me.Stop();
             Me.Play();
             FlagaPlayStop = false;
@@ -135,10 +195,6 @@ namespace Film_Player
             Me.Stop();
 
         }
-
-        
-
-
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             Me.Volume = VolumeSlider.Value;
@@ -204,7 +260,6 @@ namespace Film_Player
         }
 
       */
-
         private void CloseApp_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -222,7 +277,6 @@ namespace Film_Player
             VolumeSlider.Value = Me.Volume;
         }
 
-       
         private void Scaling_Click(object sender, RoutedEventArgs e)
         {
             RenderOptions.SetBitmapScalingMode(Me, BitmapScalingMode.LowQuality);
@@ -255,5 +309,30 @@ namespace Film_Player
             SpeedPlay.Content = speedRatioValue;
             Me.SpeedRatio = speedRatioValue;
         }
+       
+        private void Me_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            int nextVideoIndex = -1;
+            int numberOfVideos = -1;
+
+            Me.Stop();
+            PrzelacznikStop_Play();
+
+            numberOfVideos = playlistBox.Items.Count;
+            if (numberOfVideos > 0)
+            {
+                nextVideoIndex = playlistBox.SelectedIndex + 1;
+                if (nextVideoIndex >= numberOfVideos)
+                {
+                    nextVideoIndex = 0;
+                }
+
+                playlistBox.SelectedIndex = nextVideoIndex;
+                PlayPlaylist();
+            }
+            
+        }
+
+        
     }
 }

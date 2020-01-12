@@ -54,7 +54,7 @@
                     <ControlTemplate TargetType="Thumb">
                         <Rectangle Height="10" Width="8">
                             <Rectangle.Fill>
-                                <ImageBrush ImageSource="C:\Media_Player_DK\Film_Player\media\Thumb.png"></ImageBrush>
+                                <ImageBrush ImageSource="Thumb.png"></ImageBrush>
                             </Rectangle.Fill>
                         </Rectangle>
                     </ControlTemplate>
@@ -133,6 +133,7 @@
             <Menu Height="20" VerticalAlignment="Top"  Background="Azure">
                 <MenuItem Header="Plik" Background="Azure" Height="20" >
                     <MenuItem Header="_Otworz film..." Click="OpenFile_Click" FontStyle="Normal" />
+                    <MenuItem Header="Otworz _folder..." Click="OpenFolder_Click"/>
                     <MenuItem Header="_Zmiana jakości" Click="Scaling_Click" FontStyle="Normal" />
                     <MenuItem Header="_Zmiana prędkości" FontStyle="Normal" >
                         <MenuItem Header="_Resetuj" Click="resetSpeed_Click" FontStyle="Normal"/>
@@ -148,7 +149,7 @@
             </Menu>
         </Grid>
         <Grid Margin="0,20,0,0">
-            <MediaElement x:Name="Me" Margin="25,15,25,88"  LoadedBehavior="Manual" Source=""  MediaOpened="Me_MediaOpened"/>
+            <MediaElement x:Name="Me" Margin="25,15,25,88"  LoadedBehavior="Manual" Source=""  MediaOpened="Me_MediaOpened" MediaEnded="Me_MediaEnded"/>
             <Slider  x:Name="PlaybackSlider" Style="{StaticResource Horizontal_Slider1}" Margin="25,591,25,65" VerticalAlignment="Bottom"  ValueChanged="PlaybackSlider_ValueChanged" PreviewMouseUp="PlaybackSlider_PreviewMouseUp" PreviewMouseDown="PlaybackSlider_PreviewMouseDown" Background="#00000000" Foreground="#FFB04747" OpacityMask="#FFEE2626" MinWidth="975" MaxWidth="1800" />
 
             <Grid VerticalAlignment="Bottom" Margin="0,0,0,10" HorizontalAlignment="Center">
@@ -157,11 +158,13 @@
                 <Button x:Name="StartBtn" Content="Start" HorizontalAlignment="Left" Margin="766,638,0,0" VerticalAlignment="Top" Width="74" Click="StartBtn_Click" Background="#FF5C5C5C" Foreground="White"/>
                 <Slider x:Name="VolumeSlider" IsMoveToPointEnabled="True" HorizontalAlignment="Left" Style="{StaticResource Volume_Slider}" Margin="630,638,0,0" VerticalAlignment="Top" Width="106" Maximum="1" ValueChanged="VolumeSlider_ValueChanged" Value="0.3" MouseWheel="volume_Wheel"/>
                 <!--   <Slider x:Name="SpeedSlider"  IsMoveToPointEnabled="True" HorizontalAlignment="Left" Style="{StaticResource Volume_Slider}" Margin="10,635,0,0" VerticalAlignment="Top" Width="276" Maximum="2" ValueChanged="SpeedSlider_ValueChanged" Value="1" Height="23" PreviewMouseDown="SpeedSlider_PreviewMouseDown" PreviewMouseUp="SpeedSlider_PreviewMouseUp" SnapsToDevicePixels="False" OverridesDefaultStyle="False" Minimum="0.5" SmallChange="0.5" Interval="30" MouseDoubleClick="Reset_Speed"/> -->
-                <Label x:Name="TimePlay" Content="00:00" HorizontalAlignment="Center" Height="34" Margin="489,609,478,16" VerticalAlignment="Center" Width="67" FontFamily="Tw Cen MT" FontWeight="Bold" FontSize="24" Background="{x:Null}" Foreground="White"/>
+                <Label x:Name="TimePlay" Content="00:00" HorizontalAlignment="Center" Height="34" Margin="489,611,472,16" VerticalAlignment="Center" Width="73" FontFamily="Tw Cen MT" FontWeight="Bold" FontSize="24" Background="{x:Null}" Foreground="White"/>
                 <Label Content="Prędkość" HorizontalAlignment="Left" Margin="10,609,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <Label Content="Ścieżka" HorizontalAlignment="Left" Margin="10,635,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <Label x:Name="TrackPlay" Content="No track loaded" HorizontalAlignment="Left" Margin="73,635,0,0" VerticalAlignment="Top" Foreground="White"/>
                 <Label Content="Głośność" HorizontalAlignment="Left" Margin="652,612,0,0" VerticalAlignment="Top" Foreground="White"/>
                 <Label x:Name="SpeedPlay" Content="1.0" HorizontalAlignment="Left" Margin="73,609,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="26"/>
-
+                <ListBox Margin="312,28,298,539" Visibility="Hidden" Name="playlistBox" MouseDoubleClick="Load_Playlist_Double_Click" />
             </Grid>
         </Grid>
 
