@@ -150,8 +150,10 @@
         </Grid>
         <Grid Margin="0,20,0,0">
             <MediaElement x:Name="Me" Margin="25,15,25,88"  LoadedBehavior="Manual" Source=""  MediaOpened="Me_MediaOpened" MediaEnded="Me_MediaEnded"/>
+            <Grid>
+                <ListBox Margin="846,36,27,511" MaxWidth="300" Visibility="Hidden" Name="playlistBox" MouseDoubleClick="Load_Playlist_Double_Click" />
+            </Grid>
             <Slider  x:Name="PlaybackSlider" Style="{StaticResource Horizontal_Slider1}" Margin="25,591,25,65" VerticalAlignment="Bottom"  ValueChanged="PlaybackSlider_ValueChanged" PreviewMouseUp="PlaybackSlider_PreviewMouseUp" PreviewMouseDown="PlaybackSlider_PreviewMouseDown" Background="#00000000" Foreground="#FFB04747" OpacityMask="#FFEE2626" MinWidth="975" MaxWidth="1800" />
-
             <Grid VerticalAlignment="Bottom" Margin="0,0,0,10" HorizontalAlignment="Center">
 
                 <Button x:Name="StopBtn" Content="Od nowa" HorizontalAlignment="Left" Margin="862,638,0,0" VerticalAlignment="Top" Width="76" Click="StopBtn_Click" Background="#FF5C5C5C" Foreground="White"/>
@@ -164,10 +166,10 @@
                 <Label x:Name="TrackPlay" Content="No track loaded" HorizontalAlignment="Left" Margin="73,635,0,0" VerticalAlignment="Top" Foreground="White"/>
                 <Label Content="Głośność" HorizontalAlignment="Left" Margin="652,612,0,0" VerticalAlignment="Top" Foreground="White"/>
                 <Label x:Name="SpeedPlay" Content="1.0" HorizontalAlignment="Left" Margin="73,609,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="26"/>
-                <ListBox Margin="312,28,298,539" Visibility="Hidden" Name="playlistBox" MouseDoubleClick="Load_Playlist_Double_Click" />
+                <Button x:Name="ButtonPlaylist" HorizontalAlignment="Left" Margin="958,638,0,0" VerticalAlignment="Top" Width="76" Content="Playlista"  Background="#FF5C5C5C" Foreground="White" Click="playlistButton"/>
             </Grid>
         </Grid>
-
+        
     </Grid>
 
 </Window>

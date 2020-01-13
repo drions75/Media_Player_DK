@@ -8,6 +8,9 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using System.Windows.Media.Imaging;
 
+//Ilosc klatek
+//Przewijanie strzalkami o 5 sekund
+
 namespace Film_Player
 {
     
@@ -17,8 +20,10 @@ namespace Film_Player
         bool PlaybackSliderDragging = false;
         String trackPath = "";
         public bool FlagaPlayStop = true;
-        public bool FlagaPlaylista = true;
+        public bool FlagaPlaylistaVisability = false;
+        public bool FlagaWczytanoPlik = false;
         public double speedRatioValue=1;
+        
 
         //RenderTargetBitmap bmp = new RenderTargetBitmap(180, 180, 120, 96, PixelFormats.Pbgra32);
 
@@ -45,14 +50,15 @@ namespace Film_Player
 
         private void StartBtn_Click(object sender, RoutedEventArgs e)
         {
-            Me.SpeedRatio = speedRatioValue;
-            Me.Volume = VolumeSlider.Value;
-            PrzelacznikStop_Play();
-            
-            PlaybackTimer();
+            if (FlagaWczytanoPlik)
+            {
+                Me.SpeedRatio = speedRatioValue;
+                Me.Volume = VolumeSlider.Value;
+                PrzelacznikStop_Play();
 
-           
-                
+                PlaybackTimer();
+            }
+            
 
             //PlayTrack();
             //Me.Play();
@@ -159,6 +165,7 @@ namespace Film_Player
                 Me.Stop();
                 //StartBtn.Content = "Start";
             }
+            FlagaWczytanoPlik = true;
         }
         private void OpenFolder_Click(object sender, RoutedEventArgs e)
         {
@@ -175,13 +182,17 @@ namespace Film_Player
             {
                 playlistBox.Items.Clear();
                 playlistBox.Visibility = Visibility.Visible;
+                FlagaPlaylistaVisability = true;
                 files = Directory.GetFiles(folderpath, "*.mp4");
+                int i = 1;
                 foreach (string fn in files)
                 {
                     playlistBox.Items.Add(fn);
+                    //i++ + ". " +
                 }
+                
                 playlistBox.SelectedIndex = 0;
-                FlagaPlaylista = true;
+                FlagaWczytanoPlik = true;
             }
         }
        
@@ -264,13 +275,7 @@ namespace Film_Player
         {
             this.Close();
         }
-        /*
-        private void Reset_Speed(object sender, MouseButtonEventArgs e)
-        {
-            SpeedSlider.Value = 1;
-            SpeedPlay.Content = SpeedSlider.Value;
-        }
-        */
+        
         private void volume_Wheel(object sender, MouseWheelEventArgs e)
         {
             Me.Volume += (e.Delta > 0) ? 0.1 : -0.1;
@@ -331,8 +336,26 @@ namespace Film_Player
                 PlayPlaylist();
             }
             
+            PrzelacznikStop_Play();
+            Me.Play();
+            PrzelacznikStop_Play();
         }
 
+        private void playlistButton(object sender, RoutedEventArgs e)
+        {
+           
+                FlagaPlaylistaVisability = !FlagaPlaylistaVisability;
+                if (FlagaPlaylistaVisability)
+                {
+                    playlistBox.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    playlistBox.Visibility = Visibility.Hidden;
+                }
+            
+            
+        }
         
     }
 }
