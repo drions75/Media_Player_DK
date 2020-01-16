@@ -88,3 +88,4 @@ M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player
 M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.csproj.CoreCompileInputs.cache
 M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.exe
 M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.pdb
+M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\bin\Debug\Starter.jpg

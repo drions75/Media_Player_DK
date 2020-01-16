@@ -98,5 +98,10 @@
   <ItemGroup>
     <Resource Include="Thumb.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Starter.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

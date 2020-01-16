@@ -57,6 +57,7 @@ namespace Film_Player
                 PrzelacznikStop_Play();
 
                 PlaybackTimer();
+                
             }
             
 
@@ -124,7 +125,7 @@ namespace Film_Player
 
                     Me.Play();
                     timer.Start();
-                    FlagaPlayStop = !FlagaPlayStop;
+                    PrzelacznikStop_Play();
                     Me.Pause();
 
                 }
@@ -187,6 +188,7 @@ namespace Film_Player
                 int i = 1;
                 foreach (string fn in files)
                 {
+                    
                     playlistBox.Items.Add(fn);
                     //i++ + ". " +
                 }
@@ -198,12 +200,16 @@ namespace Film_Player
        
         private void StopBtn_Click(object sender, RoutedEventArgs e)
         {
-            //OD NOWA
-            Me.Stop();
-            Me.Play();
-            FlagaPlayStop = false;
-            StartBtn.Content = "Start";
-            Me.Stop();
+            if (FlagaWczytanoPlik)
+            {
+                //Restart
+                Me.Stop();
+                Me.Play();
+                FlagaPlayStop = false;
+                StartBtn.Content = "Start";
+                Me.Stop();
+            }
+            
 
         }
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -251,26 +257,7 @@ namespace Film_Player
             PlaybackSliderDragging = true;
             Me.Stop();
         }
-/*
-        private void SpeedSlider_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            
-            Me.Pause();
-            
-        }
-
-        private void SpeedSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            SpeedPlay.Content = SpeedSlider.Value;
-            Me.Play();
-        }
-
-        private void SpeedSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            Me.SpeedRatio = SpeedSlider.Value;
-        }
-
-      */
+      
         private void CloseApp_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -356,6 +343,46 @@ namespace Film_Player
             
             
         }
-        
+
+        private void Me_MediaFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+            MessageBox.Show("Coś poszło nie tak, nie można odtworzyć pliku " + trackPath + " [" +
+                            e.ErrorException.Message + "]");
+        }
+        private bool IsValidTrack(string aTrack)
+        {
+            return (aTrack.EndsWith(".mp4"));
+        }
+        private void Files_Drop(object sender, DragEventArgs e)
+        {
+            string x;
+            string[] trackpaths = e.Data.GetData(DataFormats.FileDrop) as string[];
+            foreach (string s in trackpaths)
+            {
+                if (IsValidTrack(s))
+                {
+                    x = Path.GetFileName(s);
+                    playlistBox.Items.Add(x);
+                    FlagaWczytanoPlik = true;
+                }
+            }
+            if (playlistBox.Items.Count > 0)
+            {
+                FlagaPlaylistaVisability = true;
+                playlistBox.Visibility = Visibility.Visible;
+                playlistBox.SelectedIndex = 0;
+                trackPath = trackpaths[0];
+                TrackPlay.Content = trackPath;
+                PlayTrack();
+                PrzelacznikStop_Play();
+            }
+        }
+
+        private void Me_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ContextMenu cm = this.FindResource("ContextMenu") as ContextMenu;
+            cm.PlacementTarget = sender as Button;
+            cm.IsOpen = true;
+        }
     }
 }
