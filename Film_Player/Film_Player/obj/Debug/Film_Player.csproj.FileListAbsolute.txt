@@ -97,3 +97,5 @@ M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player
 M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Info.g.cs
 M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Info.baml
 M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.csproj.CopyComplete
+M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\bin\Debug\FFmpeg.AutoGen.dll
+M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\bin\Debug\FFmpeg.AutoGen.xml

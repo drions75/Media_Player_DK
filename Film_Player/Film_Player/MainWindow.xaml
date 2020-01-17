@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Film_Player"
+        
         mc:Ignorable="d"
         Title="VideoPlayer2020" Height="730" Width="1085"  Drop="Files_Drop" AllowDrop="True">
     <Window.Resources>
@@ -24,6 +25,15 @@
             <MenuItem Header="Informacje" Height="20" Click="MediaInformation_Click" ></MenuItem>
             <Separator></Separator>
             <MenuItem Header="Wyjdź" Click="CloseApp_Click" FontStyle="Normal" FontWeight="Bold"/>
+        </ContextMenu>
+        <ContextMenu x:Key="ContextMenu2">
+            <MenuItem x:Name="PlayMenu2" Header="⏯ Play/Pauza" Height="20" Click="StartBtn_Click"></MenuItem>
+            <MenuItem Header="≡ Playlista" Height="20" Click="playlistButton" ></MenuItem>
+            <MenuItem Header="Otworz _folder..." Click="OpenFolder_Click"/>
+            <Separator></Separator>
+            <MenuItem Header="Czyść Playliste" Click="MenuItem_Click" />
+
+<MenuItem Header="Wyjdź" Click="CloseApp_Click" FontStyle="Normal" FontWeight="Bold"/>
         </ContextMenu>
         <Style x:Key="SliderRepeatButton" TargetType="RepeatButton">
             <Setter Property="SnapsToDevicePixels" Value="true" />
@@ -167,11 +177,12 @@
 
             </Menu>
         </Grid>
+        
         <Grid HorizontalAlignment="Right" ZIndex="2" Width="1077">
-            <ListBox Margin="866,33,22,85" Visibility="Hidden" Name="playlistBox" MouseDoubleClick="Load_Playlist_Double_Click" Background="#FF4D4D4D" BorderBrush="{x:Null}" Foreground="#FFE8E8E8" />
+            <ListBox   ItemsSource="{Binding}" Margin="866,33,22,85" Visibility="Hidden" Name="playlistBox" MouseDoubleClick="Load_Playlist_Double_Click" Background="#FF4D4D4D" BorderBrush="{x:Null}" Foreground="#FFE8E8E8" MouseRightButtonDown="PlaylistBox_MouseRightButtonDown" />
         </Grid>
         <Grid Margin="0,20,0,0" HorizontalAlignment="Center" ZIndex="1">
-
+            
             <MediaElement x:Name="Me" Margin="25,15,25,88" Visibility="Hidden" LoadedBehavior="Manual" Source=""  MediaOpened="Me_MediaOpened" MediaEnded="Me_MediaEnded" MediaFailed="Me_MediaFailed" MouseRightButtonDown="Me_MouseRightButtonDown"/>
             <Image Visibility="Visible" MouseRightButtonDown="Me_MouseRightButtonDown" x:Name="Starter"  HorizontalAlignment="Center"  Margin="18,12,25,0" VerticalAlignment="Top"  Source="StarterVideoPlayer3.jpg" Opacity="0.9"/>
 
@@ -187,7 +198,7 @@
                 <Label x:Name="TrackPlay" Content="Nie załadowano pliku" HorizontalAlignment="Left" Margin="73,635,0,0" VerticalAlignment="Top" Foreground="White"/>
                 <Label Content="Głośność" MouseWheel="volume_Wheel" HorizontalAlignment="Left" Margin="652,612,0,0" VerticalAlignment="Top" Foreground="White"/>
                 <Label x:Name="SpeedPlay" Content="1.0" HorizontalAlignment="Left" Margin="73,609,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="26"/>
-                <Button x:Name="ButtonPlaylist" HorizontalAlignment="Left" Margin="958,638,0,0" VerticalAlignment="Top" Width="76" Content="Playlista"  Background="#FF5C5C5C" Foreground="White" Click="playlistButton"/>
+                <Button x:Name="ButtonPlaylist" Visibility="Visible" HorizontalAlignment="Left" Margin="958,638,0,0" VerticalAlignment="Top" Width="76" Content="Playlista"  Background="#FF5C5C5C" Foreground="White" Click="playlistButton"/>
 
             </Grid>
 

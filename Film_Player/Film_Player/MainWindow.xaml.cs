@@ -8,13 +8,25 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using System.Xml;
 using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows.Documents;
 using System.Windows.Media.Imaging;
+
+
 
 //Ilosc klatek
 //Przewijanie strzalkami o 5 sekund
 
 namespace Film_Player
 {
+    public struct Film
+    {
+
+        public string nazwa;
+        public string trackPath_1;
+        
+    }
     
     public partial class MainWindow : Window
     {
@@ -25,15 +37,19 @@ namespace Film_Player
         public bool FlagaPlaylistaVisability = false;
         public bool FlagaWczytanoPlik = false;
         public double speedRatioValue=1;
+        public List<Film> l_filmy = new List<Film>();
+        public int nowe = 0;
         
 
         //RenderTargetBitmap bmp = new RenderTargetBitmap(180, 180, 120, 96, PixelFormats.Pbgra32);
 
         public MainWindow()
         {
+            
             InitializeComponent();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
             timer.Tick += new EventHandler(Timer_Tick);
+           
         }
 
         void PlaybackTimer()
@@ -73,11 +89,35 @@ namespace Film_Player
         }
         private void Load_Playlist_Double_Click(object sender, MouseButtonEventArgs e)
         {
+            
             if (playlistBox.Items.Count > 0)
             {
-               PlayPlaylist();
-               Me.Play();
-               PrzelacznikStop_Play();
+                
+                int selectedItemIndex = -1;
+                selectedItemIndex = playlistBox.SelectedIndex;
+                if (selectedItemIndex > -1)
+                {
+                    TurnPath(selectedItemIndex);
+                    PlayPlaylist();
+                    Me.Play();
+                    PrzelacznikStop_Play();
+                }
+                   
+               
+            }
+            
+        }
+
+        void TurnPath(int selectedItemIndex)
+        {
+            string tmp_path;
+            tmp_path = playlistBox.Items[selectedItemIndex].ToString();
+            for (int i = 0; i < l_filmy.Count; i++)
+            {
+                if (l_filmy[i].nazwa == tmp_path)
+                {
+                    trackPath = l_filmy[i].trackPath_1;
+                }
             }
         }
         private void PlayPlaylist()
@@ -88,7 +128,7 @@ namespace Film_Player
                 selectedItemIndex = playlistBox.SelectedIndex;
                 if (selectedItemIndex > -1)
                 {
-                    trackPath = playlistBox.Items[selectedItemIndex].ToString();
+                    TurnPath(selectedItemIndex);//trackPath = playlistBox.Items[selectedItemIndex].ToString();
                     TrackPlay.Content = trackPath;
                     PlayTrack();
                 }
@@ -149,7 +189,7 @@ namespace Film_Player
             Shell32.Folder folder = shell.NameSpace(dirname);
             Shell32.FolderItem folderitem = folder.ParseName(filename);
             info = filename;
-            for (int i = 0; i <= 315; i++)
+            for (int i = 10; i <= 340; i++)
             {
                 header = folder.GetDetailsOf(null, i);
                 data = folder.GetDetailsOf(folderitem, i);
@@ -173,7 +213,9 @@ namespace Film_Player
                 Info ip = new Info(info);
                 ip.ShowDialog();
             }
+            
         }
+
         public void PrzelacznikStop_Play(bool status = true)
         {
             
@@ -208,7 +250,7 @@ namespace Film_Player
                 PlayTrack();
                 Me.Play();
                 Me.Stop();
-                //StartBtn.Content = "Start";
+                
             }
             FlagaWczytanoPlik = true;
         }
@@ -230,15 +272,24 @@ namespace Film_Player
                 FlagaPlaylistaVisability = true;
                 files = Directory.GetFiles(folderpath, "*.mp4");
                 int i = 1;
+                Film tmp;
                 foreach (string fn in files)
                 {
                     
-                    playlistBox.Items.Add(fn);
+                    tmp.trackPath_1 = fn;
+                    tmp.nazwa = Path.GetFileName(fn);
+                    playlistBox.Items.Add(tmp.nazwa);
+                    l_filmy.Add(tmp);
+                    trackPath = tmp.trackPath_1;
+                    //playlistBox.Items.Add(fn);
                     //i++ + ". " +
                 }
-                
+
+                TrackPlay.Content = trackPath;
                 playlistBox.SelectedIndex = 0;
                 FlagaWczytanoPlik = true;
+                PlayTrack();
+                PrzelacznikStop_Play();
             }
         }
        
@@ -374,7 +425,8 @@ namespace Film_Player
 
         private void playlistButton(object sender, RoutedEventArgs e)
         {
-           
+            if (l_filmy.Count >= 1)
+            {
                 FlagaPlaylistaVisability = !FlagaPlaylistaVisability;
                 if (FlagaPlaylistaVisability)
                 {
@@ -384,6 +436,8 @@ namespace Film_Player
                 {
                     playlistBox.Visibility = Visibility.Hidden;
                 }
+            }
+              
             
             
         }
@@ -395,36 +449,81 @@ namespace Film_Player
         }
         private bool IsValidTrack(string aTrack)
         {
-            return (aTrack.EndsWith(".mp4"));
+            return (aTrack.EndsWith(".mp4") || aTrack.EndsWith(".MP4") || aTrack.EndsWith(".mov"));
         }
         private void Files_Drop(object sender, DragEventArgs e)
         {
-            string x;
+           
             string[] trackpaths = e.Data.GetData(DataFormats.FileDrop) as string[];
-            foreach (string s in trackpaths)
+            if (trackpaths != null)
             {
-                if (IsValidTrack(s))
+                nowe = trackpaths.Length;
+                Film tmp;
+               
+                for (int i = 0; i < trackpaths.Length; i++)
                 {
-                    x = Path.GetFileName(s);
-                    playlistBox.Items.Add(x);
-                    FlagaWczytanoPlik = true;
+                    if (IsValidTrack(trackpaths[i]))
+                    {
+                        
+                        tmp.trackPath_1 = trackpaths[i];
+                        tmp.nazwa = Path.GetFileName(trackpaths[i]);
+                        playlistBox.Items.Add(tmp.nazwa);
+                        l_filmy.Add(tmp);
+                        
+                    }
+
+                    
                 }
-            }
-            if (playlistBox.Items.Count > 0)
-            {
-                FlagaPlaylistaVisability = true;
-                playlistBox.Visibility = Visibility.Visible;
-                playlistBox.SelectedIndex = 0;
-                trackPath = trackpaths[0];
-                TrackPlay.Content = trackPath;
-                PlayTrack();
-                PrzelacznikStop_Play();
+
+                //f.nazwa = Path.GetFileName(f.trackPath_1);
+                //playlistBox.Items.Add(f.trackPath_1);
+
+                FlagaWczytanoPlik = true;
+
+
+                if (playlistBox.Items.Count > 0)
+                {
+                    FlagaPlaylistaVisability = true;
+                    playlistBox.Visibility = Visibility.Visible;
+                    playlistBox.SelectedIndex = 0;
+                    trackPath = trackpaths[0];
+                    TrackPlay.Content = trackPath;
+                    PlayTrack();
+                    PrzelacznikStop_Play();
+                }
             }
         }
 
         private void Me_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             ContextMenu cm = this.FindResource("ContextMenu") as ContextMenu;
+            cm.PlacementTarget = sender as Button;
+            cm.IsOpen = true;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            l_filmy.Clear();
+            playlistBox.Items.Clear();
+            Me.Stop();
+            Me.Source = null;
+            Me.Close();
+            FlagaWczytanoPlik = false;
+            TrackPlay.Content = "Nie załadowano pliku...";
+            TimePlay.Content = "00:00";
+            if (StartBtn.Content == "Pause")
+            {
+                StartBtn.Content = "Start";
+            }
+            playlistBox.Visibility = Visibility.Hidden;
+            Me.Visibility = Visibility.Hidden;
+            Starter.Visibility = Visibility.Visible;
+            
+        }
+
+        private void PlaylistBox_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ContextMenu cm = this.FindResource("ContextMenu2") as ContextMenu;
             cm.PlacementTarget = sender as Button;
             cm.IsOpen = true;
         }
