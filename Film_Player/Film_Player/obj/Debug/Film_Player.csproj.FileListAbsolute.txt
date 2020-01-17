@@ -89,3 +89,11 @@ M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player
 M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.exe
 M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.pdb
 M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\bin\Debug\Starter.jpg
+M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\bin\Debug\Microsoft.VisualStudio.Shell.Interop.dll
+M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll
+M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.dll
+M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Interop.Shell32.dll
+M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.csproj.ResolveComReference.cache
+M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Info.g.cs
+M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Info.baml
+M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.csproj.CopyComplete

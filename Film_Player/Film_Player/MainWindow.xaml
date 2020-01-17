@@ -21,7 +21,7 @@
                 <MenuItem Header="1.5" Click="OneHalfSpeed_Click" FontStyle="Normal"/>
                 <MenuItem Header="2.0" Click="twoSpeed_Click" FontStyle="Normal"/>
             </MenuItem>
-            <MenuItem Header="Informacje" Height="20" ></MenuItem>
+            <MenuItem Header="Informacje" Height="20" Click="MediaInformation_Click" ></MenuItem>
             <Separator></Separator>
             <MenuItem Header="Wyjdź" Click="CloseApp_Click" FontStyle="Normal" FontWeight="Bold"/>
         </ContextMenu>
@@ -162,17 +162,18 @@
                     <Separator></Separator>
                     <MenuItem Header="Wyjdź" Click="CloseApp_Click" FontStyle="Normal" FontWeight="Bold"/>
                 </MenuItem>
-                <MenuItem Header="Informacje" Height="20" ></MenuItem>
+                <MenuItem Header="Informacje" Height="20" Click="MediaInformation_Click" ></MenuItem>
 
 
             </Menu>
         </Grid>
         <Grid HorizontalAlignment="Right" ZIndex="2" Width="1077">
-            <ListBox Width="180" Margin="852,33,21,87" Visibility="Hidden" Name="playlistBox" MouseDoubleClick="Load_Playlist_Double_Click" Background="#FF4D4D4D" BorderBrush="{x:Null}" Foreground="#FFE8E8E8" />
+            <ListBox Margin="866,33,22,85" Visibility="Hidden" Name="playlistBox" MouseDoubleClick="Load_Playlist_Double_Click" Background="#FF4D4D4D" BorderBrush="{x:Null}" Foreground="#FFE8E8E8" />
         </Grid>
         <Grid Margin="0,20,0,0" HorizontalAlignment="Center" ZIndex="1">
 
-            <MediaElement x:Name="Me" Margin="25,15,25,88"  LoadedBehavior="Manual" Source=""  MediaOpened="Me_MediaOpened" MediaEnded="Me_MediaEnded" MediaFailed="Me_MediaFailed" MouseRightButtonDown="Me_MouseRightButtonDown"/>
+            <MediaElement x:Name="Me" Margin="25,15,25,88" Visibility="Hidden" LoadedBehavior="Manual" Source=""  MediaOpened="Me_MediaOpened" MediaEnded="Me_MediaEnded" MediaFailed="Me_MediaFailed" MouseRightButtonDown="Me_MouseRightButtonDown"/>
+            <Image Visibility="Visible" MouseRightButtonDown="Me_MouseRightButtonDown" x:Name="Starter"  HorizontalAlignment="Center"  Margin="18,12,25,0" VerticalAlignment="Top"  Source="StarterVideoPlayer3.jpg" Opacity="0.9"/>
 
             <Slider  x:Name="PlaybackSlider" Style="{StaticResource Horizontal_Slider1}" Margin="25,591,25,65" VerticalAlignment="Bottom"  ValueChanged="PlaybackSlider_ValueChanged" PreviewMouseUp="PlaybackSlider_PreviewMouseUp" PreviewMouseDown="PlaybackSlider_PreviewMouseDown" Background="#00000000" Foreground="#FFB04747" OpacityMask="#FFEE2626" MinWidth="975" MaxWidth="1800" />
             <Grid VerticalAlignment="Bottom" Margin="0,0,0,10" HorizontalAlignment="Center">

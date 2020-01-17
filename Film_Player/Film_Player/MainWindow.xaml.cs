@@ -6,6 +6,8 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using System.Xml;
+using System.Collections;
 using System.Windows.Media.Imaging;
 
 //Ilosc klatek
@@ -95,6 +97,8 @@ namespace Film_Player
         }
         private void PlayTrack()
         {
+            Starter.Visibility = Visibility.Hidden;
+            Me.Visibility = Visibility.Visible;
             bool ok = true;
             FileInfo fi = null;
             Uri src;
@@ -131,8 +135,48 @@ namespace Film_Player
                 }
             }
         }
+        private string GetFileInfo()
+        {
+            
+            string dirname;
+            string filename;
+            string header;
+            string data;
+            string info = "";
+            Shell32.Shell shell = new Shell32.Shell();
+            dirname = Path.GetDirectoryName(trackPath);
+            filename = Path.GetFileName(trackPath);
+            Shell32.Folder folder = shell.NameSpace(dirname);
+            Shell32.FolderItem folderitem = folder.ParseName(filename);
+            info = filename;
+            for (int i = 0; i <= 315; i++)
+            {
+                header = folder.GetDetailsOf(null, i);
+                data = folder.GetDetailsOf(folderitem, i);
+                if (!(String.IsNullOrEmpty(header)) && !(String.IsNullOrEmpty(data)))
+                {
+                    info += $"{header}: {data}\r";
+                }
+            }
+            return info;
+        }
+        private void MediaInformation_Click(object sender, RoutedEventArgs e)
+        {
+            string info = "";
+            if (String.IsNullOrEmpty(trackPath))
+            {
+                MessageBox.Show("Nie odtwarzasz aktualnie żadnego wideo");
+            }
+            else
+            {
+                info = GetFileInfo();
+                Info ip = new Info(info);
+                ip.ShowDialog();
+            }
+        }
         public void PrzelacznikStop_Play(bool status = true)
         {
+            
             
             FlagaPlayStop = !FlagaPlayStop;
             if (FlagaPlayStop)
