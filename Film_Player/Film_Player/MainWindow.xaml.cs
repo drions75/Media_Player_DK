@@ -36,9 +36,11 @@ namespace Film_Player
         public bool FlagaPlayStop = true;
         public bool FlagaPlaylistaVisability = false;
         public bool FlagaWczytanoPlik = false;
+        public bool FlagaFullScreen = false;
         public double speedRatioValue=1;
         public List<Film> l_filmy = new List<Film>();
         public int nowe = 0;
+        
         
 
         //RenderTargetBitmap bmp = new RenderTargetBitmap(180, 180, 120, 96, PixelFormats.Pbgra32);
@@ -47,9 +49,9 @@ namespace Film_Player
         {
             
             InitializeComponent();
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 50);
             timer.Tick += new EventHandler(Timer_Tick);
-           
+            
         }
 
         void PlaybackTimer()
@@ -66,7 +68,7 @@ namespace Film_Player
             }
         }
 
-        private void StartBtn_Click(object sender, RoutedEventArgs e)
+        public void StartMedia()
         {
             if (FlagaWczytanoPlik)
             {
@@ -75,16 +77,12 @@ namespace Film_Player
                 PrzelacznikStop_Play();
 
                 PlaybackTimer();
-                
+
             }
-            
-
-            //PlayTrack();
-            //Me.Play();
-            //Me.Stop();
-
-            //TimePlay.Content ;
-            //Me.Play();
+        }
+        private void StartBtn_Click(object sender, RoutedEventArgs e)
+        {
+            StartMedia();
 
         }
         private void Load_Playlist_Double_Click(object sender, MouseButtonEventArgs e)
@@ -129,7 +127,7 @@ namespace Film_Player
                 if (selectedItemIndex > -1)
                 {
                     TurnPath(selectedItemIndex);//trackPath = playlistBox.Items[selectedItemIndex].ToString();
-                    TrackPlay.Content = trackPath;
+                    TrackPlay.Text = trackPath;
                     PlayTrack();
                 }
             }
@@ -137,6 +135,7 @@ namespace Film_Player
         }
         private void PlayTrack()
         {
+            TrackPlay.ToolTip = trackPath;
             Starter.Visibility = Visibility.Hidden;
             Me.Visibility = Visibility.Visible;
             bool ok = true;
@@ -224,11 +223,11 @@ namespace Film_Player
             if (FlagaPlayStop)
             {
                 Me.Play();
-                StartBtn.Content = "Pause";
+                StartBtn.Content = "⏸";
             }
             else
             {
-                StartBtn.Content = "Start";
+                StartBtn.Content = "▶️";
                 Me.Pause();
             }
         }
@@ -246,7 +245,7 @@ namespace Film_Player
                 playlistBox.Items.Clear();
                 playlistBox.Visibility = Visibility.Hidden;
                 trackPath = dlg.FileName;
-                TrackPlay.Content = trackPath;
+                TrackPlay.Text = trackPath;
                 PlayTrack();
                 Me.Play();
                 Me.Stop();
@@ -285,7 +284,7 @@ namespace Film_Player
                     //i++ + ". " +
                 }
 
-                TrackPlay.Content = trackPath;
+                TrackPlay.Text = trackPath;
                 playlistBox.SelectedIndex = 0;
                 FlagaWczytanoPlik = true;
                 PlayTrack();
@@ -301,7 +300,7 @@ namespace Film_Player
                 Me.Stop();
                 Me.Play();
                 FlagaPlayStop = false;
-                StartBtn.Content = "Start";
+                StartBtn.Content = "▶";
                 Me.Stop();
             }
             
@@ -399,30 +398,45 @@ namespace Film_Player
        
         private void Me_MediaEnded(object sender, RoutedEventArgs e)
         {
+            TurnTrack();
+        }
+
+        public void TurnTrack(int kierunek = 1)
+        {
             int nextVideoIndex = -1;
             int numberOfVideos = -1;
-
             Me.Stop();
             PrzelacznikStop_Play();
-
             numberOfVideos = playlistBox.Items.Count;
+            
             if (numberOfVideos > 0)
             {
-                nextVideoIndex = playlistBox.SelectedIndex + 1;
-                if (nextVideoIndex >= numberOfVideos)
+                if (kierunek == 1)
+                {
+                    nextVideoIndex = playlistBox.SelectedIndex + 1;
+                }
+                else 
+                {
+                    nextVideoIndex = playlistBox.SelectedIndex - 1;
+                }
+
+                if (nextVideoIndex < 0)
+                {
+                    nextVideoIndex = numberOfVideos -1;
+                }
+                else if (nextVideoIndex >= numberOfVideos)
                 {
                     nextVideoIndex = 0;
                 }
+               
 
                 playlistBox.SelectedIndex = nextVideoIndex;
                 PlayPlaylist();
             }
-            
             PrzelacznikStop_Play();
             Me.Play();
             PrzelacznikStop_Play();
         }
-
         private void playlistButton(object sender, RoutedEventArgs e)
         {
             if (l_filmy.Count >= 1)
@@ -474,20 +488,14 @@ namespace Film_Player
 
                     
                 }
-
-                //f.nazwa = Path.GetFileName(f.trackPath_1);
-                //playlistBox.Items.Add(f.trackPath_1);
-
                 FlagaWczytanoPlik = true;
-
-
                 if (playlistBox.Items.Count > 0)
                 {
                     FlagaPlaylistaVisability = true;
                     playlistBox.Visibility = Visibility.Visible;
                     playlistBox.SelectedIndex = 0;
                     trackPath = trackpaths[0];
-                    TrackPlay.Content = trackPath;
+                    TrackPlay.Text = trackPath;
                     PlayTrack();
                     PrzelacznikStop_Play();
                 }
@@ -509,16 +517,16 @@ namespace Film_Player
             Me.Source = null;
             Me.Close();
             FlagaWczytanoPlik = false;
-            TrackPlay.Content = "Nie załadowano pliku...";
+            TrackPlay.Text = "Nie załadowano pliku...";
             TimePlay.Content = "00:00";
-            if (StartBtn.Content == "Pause")
+            if (StartBtn.Content == "⏸")
             {
-                StartBtn.Content = "Start";
+                StartBtn.Content = "▶️";
             }
             playlistBox.Visibility = Visibility.Hidden;
             Me.Visibility = Visibility.Hidden;
             Starter.Visibility = Visibility.Visible;
-            
+            SpeedPlay.Content = 1;
         }
 
         private void PlaylistBox_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -526,6 +534,84 @@ namespace Film_Player
             ContextMenu cm = this.FindResource("ContextMenu2") as ContextMenu;
             cm.PlacementTarget = sender as Button;
             cm.IsOpen = true;
+        }
+
+        private void ChangeTrackButton_P(object sender, RoutedEventArgs e)
+        {
+            if (FlagaWczytanoPlik && l_filmy.Count > 1)
+            {
+                TurnTrack();
+            }
+        }
+        private void ChangeTrackButton_L(object sender, RoutedEventArgs e)
+        {
+            if (FlagaWczytanoPlik && l_filmy.Count > 1)
+            {
+                TurnTrack(-1);
+            }
+        }
+
+        private void ExtendScreenButton(object sender, RoutedEventArgs e)
+        {
+            FlagaFullScreen = !FlagaFullScreen;
+            if (FlagaFullScreen)
+            {
+                WindowState = WindowState.Maximized;
+                WindowStyle = WindowStyle.None;
+            }
+            else
+            {
+                WindowState = WindowState.Normal;
+                WindowStyle = WindowStyle.SingleBorderWindow;
+            }
+            
+        }
+
+        private void PlaylistBox_MouseEnter(object sender, MouseEventArgs e)
+        {
+
+            playlistBox.Opacity = 1;
+        }
+
+        private void PlaylistBox_MouseLeave(object sender, MouseEventArgs e)
+        {
+            playlistBox.Opacity = 0.35;
+            
+        }
+
+       
+
+        private void Klawiszologia(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                StartMedia();
+            }
+
+            if (e.Key == Key.Escape)
+            {
+                if (FlagaFullScreen)
+                {
+                    FlagaFullScreen = !FlagaFullScreen;
+                    WindowState = WindowState.Normal;
+                    WindowStyle = WindowStyle.SingleBorderWindow;
+                }
+                else
+                {
+                    this.Close();
+                }
+                
+            }
+
+            if (e.Key == Key.Right)
+            {
+                TurnTrack();
+            }
+
+            if (e.Key == Key.Left)
+            {
+                TurnTrack(-1);
+            }
         }
     }
 }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Film_Player"
         
         mc:Ignorable="d"
-        Title="VideoPlayer2020" Height="730" Width="1085"  Drop="Files_Drop" AllowDrop="True">
+        Title="VideoPlayer2020" Height="730" Width="1198"  Drop="Files_Drop" AllowDrop="True" KeyDown="Klawiszologia"   >
     <Window.Resources>
 
         <ContextMenu x:Key="ContextMenu">
@@ -33,7 +33,7 @@
             <Separator></Separator>
             <MenuItem Header="Czyść Playliste" Click="MenuItem_Click" />
 
-<MenuItem Header="Wyjdź" Click="CloseApp_Click" FontStyle="Normal" FontWeight="Bold"/>
+            <MenuItem Header="Wyjdź" Click="CloseApp_Click" FontStyle="Normal" FontWeight="Bold"/>
         </ContextMenu>
         <Style x:Key="SliderRepeatButton" TargetType="RepeatButton">
             <Setter Property="SnapsToDevicePixels" Value="true" />
@@ -43,7 +43,20 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RepeatButton">
-                        <Border  BorderThickness="1" BorderBrush="Black" Background="Black" Height="3"/>
+                        <Border  BorderThickness="1" BorderBrush="Black" Background="Black" Height="10"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SliderRepeatButton5" TargetType="RepeatButton">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="IsTabStop" Value="false" />
+            <Setter Property="Focusable" Value="false" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border  BorderThickness="1" BorderBrush="Black" Background="Black" Opacity="0.85" Height="36" Margin="0 -13 0 0"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -55,7 +68,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RepeatButton">
-                        <Border SnapsToDevicePixels="True" Background="Green"  BorderThickness="2" BorderBrush="Red" Height="2"/>
+                        <Border SnapsToDevicePixels="True" Background="Green"  BorderThickness="10" BorderBrush="Red" Height="10"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -67,7 +80,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RepeatButton">
-                        <Border SnapsToDevicePixels="True" Background="Green"  BorderThickness="2" BorderBrush="Green" Height="2"/>
+                        <Border SnapsToDevicePixels="True" Opacity="0.85" Background="#FF577430"  BorderThickness="2" BorderBrush="#FF577430" Height="36" Margin="-1 -13 0 0"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -80,6 +93,21 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Thumb">
                         <Rectangle Height="10" Width="8">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="Thumb.png"></ImageBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SliderThumb2" TargetType="Thumb">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Rectangle Height="36" Width="10" Margin="0 -13 0 0">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="Thumb.png"></ImageBrush>
                             </Rectangle.Fill>
@@ -120,10 +148,10 @@
                         <RepeatButton Style="{StaticResource SliderRepeatButton2}"  Command="Slider.DecreaseLarge" />
                     </Track.DecreaseRepeatButton>
                     <Track.Thumb>
-                        <Thumb Style="{StaticResource SliderThumb}"  />
+                        <Thumb Style="{StaticResource SliderThumb2}"  />
                     </Track.Thumb>
                     <Track.IncreaseRepeatButton>
-                        <RepeatButton Style="{StaticResource SliderRepeatButton}" Command="Slider.IncreaseLarge" />
+                        <RepeatButton Style="{StaticResource SliderRepeatButton5}" Command="Slider.IncreaseLarge" />
                     </Track.IncreaseRepeatButton>
                 </Track>
             </Grid>
@@ -134,7 +162,7 @@
             <Setter Property="OverridesDefaultStyle" Value="true" />
             <Style.Triggers>
                 <Trigger Property="Orientation" Value="Horizontal">
-                    <Setter Property="MinHeight" Value="21" />
+                    <Setter Property="MinHeight" Value="28" />
                     <Setter Property="MinWidth" Value="104" />
                     <Setter Property="Template" Value="{StaticResource Slider}" />
                 </Trigger>
@@ -155,51 +183,66 @@
         </Style>
     </Window.Resources>
 
-    <Grid Margin="0,0,0,0" Background="#FF302B2B">
+    <Grid Margin="0,0,0,0" Background="Black">
 
         <Grid>
-            <Menu Height="20" VerticalAlignment="Top" >
-                <MenuItem Header="Plik"  Height="20" >
-                    <MenuItem Header="_Otworz film..." Click="OpenFile_Click" FontStyle="Normal" />
-                    <MenuItem Header="Otworz _folder..." Click="OpenFolder_Click"/>
-                    <MenuItem Header="_Zmiana jakości" Click="Scaling_Click" FontStyle="Normal" />
-                    <MenuItem Header="_Zmiana prędkości" FontStyle="Normal" >
-                        <MenuItem Header="_Resetuj" Click="resetSpeed_Click" FontStyle="Normal"/>
-                        <MenuItem Header="0.5" Click="halfSpeed_Click" FontStyle="Normal"/>
-                        <MenuItem Header="1.5" Click="OneHalfSpeed_Click" FontStyle="Normal"/>
-                        <MenuItem Header="2.0" Click="twoSpeed_Click" FontStyle="Normal"/>
+            <Menu Height="20" VerticalAlignment="Top" Background="#FF010101" Foreground="White" >
+                <MenuItem Header="Plik"  Height="20" Foreground="White" >
+                    <MenuItem Header="_Otworz film..." Click="OpenFile_Click" FontStyle="Normal" Foreground="Black"/>
+                    <MenuItem Header="Otworz _folder..." Click="OpenFolder_Click" Foreground="Black"/>
+                    <MenuItem Header="_Zmiana jakości" Click="Scaling_Click" FontStyle="Normal" Foreground="Black" />
+                    <MenuItem Header="_Zmiana prędkości" FontStyle="Normal" Foreground="Black" >
+                        <MenuItem Header="_Resetuj" Click="resetSpeed_Click" FontStyle="Normal" Foreground="Black"/>
+                        <MenuItem Header="0.5" Click="halfSpeed_Click" FontStyle="Normal" Foreground="Black"/>
+                        <MenuItem Header="1.5" Click="OneHalfSpeed_Click" FontStyle="Normal" Foreground="Black"/>
+                        <MenuItem Header="2.0" Click="twoSpeed_Click" FontStyle="Normal" Foreground="Black"/>
                     </MenuItem>
                     <Separator></Separator>
-                    <MenuItem Header="Wyjdź" Click="CloseApp_Click" FontStyle="Normal" FontWeight="Bold"/>
+                    <MenuItem Header="Wyjdź" Click="CloseApp_Click" FontStyle="Normal" FontWeight="Bold" Foreground="Black"/>
                 </MenuItem>
-                <MenuItem Header="Informacje" Height="20" Click="MediaInformation_Click" ></MenuItem>
+                <MenuItem Header="Informacje" Height="20" Click="MediaInformation_Click" Foreground="White" ></MenuItem>
 
 
             </Menu>
         </Grid>
+
         
-        <Grid HorizontalAlignment="Right" ZIndex="2" Width="1077">
-            <ListBox   ItemsSource="{Binding}" Margin="866,33,22,85" Visibility="Hidden" Name="playlistBox" MouseDoubleClick="Load_Playlist_Double_Click" Background="#FF4D4D4D" BorderBrush="{x:Null}" Foreground="#FFE8E8E8" MouseRightButtonDown="PlaylistBox_MouseRightButtonDown" />
+        <Grid ZIndex="4">
+            <Slider  x:Name="PlaybackSlider" Style="{StaticResource Horizontal_Slider1}" Margin="1,0,0,-8" VerticalAlignment="Bottom"  ValueChanged="PlaybackSlider_ValueChanged" PreviewMouseUp="PlaybackSlider_PreviewMouseUp" PreviewMouseDown="PlaybackSlider_PreviewMouseDown" Background="#00000000" Foreground="#FFB04747" OpacityMask="#FFEE2626" />
+            <ListBox   ItemsSource="{Binding}" Visibility="Hidden" Margin="0,218,0,85" Width="175" Height="250" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Name="playlistBox" MouseDoubleClick="Load_Playlist_Double_Click" Background="Black" BorderBrush="{x:Null}" Foreground="#FFE8E8E8" MouseRightButtonDown="PlaylistBox_MouseRightButtonDown" Opacity="0.35" MouseEnter="PlaylistBox_MouseEnter" MouseLeave="PlaylistBox_MouseLeave"/>
+             
         </Grid>
         <Grid Margin="0,20,0,0" HorizontalAlignment="Center" ZIndex="1">
-            
-            <MediaElement x:Name="Me" Margin="25,15,25,88" Visibility="Hidden" LoadedBehavior="Manual" Source=""  MediaOpened="Me_MediaOpened" MediaEnded="Me_MediaEnded" MediaFailed="Me_MediaFailed" MouseRightButtonDown="Me_MouseRightButtonDown"/>
-            <Image Visibility="Visible" MouseRightButtonDown="Me_MouseRightButtonDown" x:Name="Starter"  HorizontalAlignment="Center"  Margin="18,12,25,0" VerticalAlignment="Top"  Source="StarterVideoPlayer3.jpg" Opacity="0.9"/>
 
-            <Slider  x:Name="PlaybackSlider" Style="{StaticResource Horizontal_Slider1}" Margin="25,591,25,65" VerticalAlignment="Bottom"  ValueChanged="PlaybackSlider_ValueChanged" PreviewMouseUp="PlaybackSlider_PreviewMouseUp" PreviewMouseDown="PlaybackSlider_PreviewMouseDown" Background="#00000000" Foreground="#FFB04747" OpacityMask="#FFEE2626" MinWidth="975" MaxWidth="1800" />
-            <Grid VerticalAlignment="Bottom" Margin="0,0,0,10" HorizontalAlignment="Center">
 
-                <Button x:Name="StopBtn" Content="Restart" HorizontalAlignment="Left" Margin="862,638,0,0" VerticalAlignment="Top" Width="76" Click="StopBtn_Click" Background="#FF5C5C5C" Foreground="White"/>
-                <Button x:Name="StartBtn" Content="Start" HorizontalAlignment="Left" Margin="766,638,0,0" VerticalAlignment="Top" Width="74" Click="StartBtn_Click" Background="#FF5C5C5C" Foreground="White"/>
-                <Slider x:Name="VolumeSlider" IsMoveToPointEnabled="True" HorizontalAlignment="Left" Style="{StaticResource Volume_Slider}" Margin="630,638,0,0" VerticalAlignment="Top" Width="106" Maximum="1" ValueChanged="VolumeSlider_ValueChanged" Value="0.3" MouseWheel="volume_Wheel"/>
-                <Label x:Name="TimePlay" Content="00:00" HorizontalAlignment="Center" Height="34" Margin="492,611,474,16" VerticalAlignment="Center" Width="68" FontFamily="Tw Cen MT" FontSize="24" Background="{x:Null}" Foreground="White"/>
-                <Label Content="Prędkość"  MouseDoubleClick="resetSpeed_Click" HorizontalAlignment="Left" Margin="10,609,0,0" VerticalAlignment="Top" Foreground="White"/>
-                <Label Content="Ścieżka" HorizontalAlignment="Left" Margin="10,635,0,0" VerticalAlignment="Top" Foreground="White"/>
-                <Label x:Name="TrackPlay" Content="Nie załadowano pliku" HorizontalAlignment="Left" Margin="73,635,0,0" VerticalAlignment="Top" Foreground="White"/>
-                <Label Content="Głośność" MouseWheel="volume_Wheel" HorizontalAlignment="Left" Margin="652,612,0,0" VerticalAlignment="Top" Foreground="White"/>
-                <Label x:Name="SpeedPlay" Content="1.0" HorizontalAlignment="Left" Margin="73,609,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="26"/>
-                <Button x:Name="ButtonPlaylist" Visibility="Visible" HorizontalAlignment="Left" Margin="958,638,0,0" VerticalAlignment="Top" Width="76" Content="Playlista"  Background="#FF5C5C5C" Foreground="White" Click="playlistButton"/>
+            <MediaElement x:Name="Me" Visibility="Hidden" LoadedBehavior="Manual" Source=""  MediaOpened="Me_MediaOpened" MediaEnded="Me_MediaEnded" MediaFailed="Me_MediaFailed" MouseRightButtonDown="Me_MouseRightButtonDown" Grid.ColumnSpan="2"/>
+            <Image Visibility="Visible" MouseRightButtonDown="Me_MouseRightButtonDown" x:Name="Starter"  HorizontalAlignment="Center" VerticalAlignment="Top"  Source="Kaniewski_design_logo.png" Opacity="0.9" Grid.ColumnSpan="2"/>
 
+            <Grid x:Name="MainGridUI"  VerticalAlignment="Bottom" Margin="22,0,21,10" HorizontalAlignment="Center" ZIndex="2" >
+
+                <Button Focusable="False" x:Name="StopBtn" Content="⏹" HorizontalAlignment="Left" Margin="578,614,0,0" VerticalAlignment="Top"  Click="StopBtn_Click" Background="Black" Foreground="White" Height="38" Width="48" Opacity="0.85" BorderBrush="{x:Null}" />
+                <Button Focusable="False" x:Name="StartBtn" Content="▶" HorizontalAlignment="Left" Margin="532,614,0,0" VerticalAlignment="Top" Width="48" Click="StartBtn_Click" Background="Black" Foreground="White" Height="38" Opacity="0.85" BorderBrush="{x:Null}"/>
+                <Slider x:Name="VolumeSlider" IsMoveToPointEnabled="True" HorizontalAlignment="Left" Style="{StaticResource Volume_Slider}" Margin="766,628,0,0" VerticalAlignment="Top" Width="125" Maximum="1" ValueChanged="VolumeSlider_ValueChanged" Value="0.3" MouseWheel="volume_Wheel"/>
+                <Label x:Name="TimePlay" BorderThickness="1" Content="00:00" HorizontalAlignment="Center" Height="38" Width="69" Margin="464,614,501,9" VerticalAlignment="Center"  FontFamily="Tw Cen MT" FontSize="24" Background="Black" Foreground="White" Opacity="0.85"/>
+                <Label Panel.ZIndex="3" Content="Prędkość"  MouseDoubleClick="resetSpeed_Click" HorizontalAlignment="Left" Margin="961,620,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <Label Panel.ZIndex="3" Content="Ścieżka:" HorizontalAlignment="Left" Margin="-38,620,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <TextBlock  Panel.ZIndex="3" ToolTip=""  x:Name="TrackPlay" TextTrimming="CharacterEllipsis" Text="Nie załadowano pliku" HorizontalAlignment="Left" Margin="18,625,0,0" VerticalAlignment="Top" Foreground="White" Width="240"/>
+                <Label Content="🔊" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="1"  Height="38" Width="48" MouseWheel="volume_Wheel" HorizontalAlignment="Left" Margin="718,614,0,0" VerticalAlignment="Top" Foreground="White" Background="Black" Opacity="0.85"/>
+                <Label Panel.ZIndex="3" x:Name="SpeedPlay" Content="1.0" HorizontalAlignment="Left" Margin="1024,620,-30,0" VerticalAlignment="Top" Foreground="White" Height="28" Width="40" Background="{x:Null}"/>
+                <Button Focusable="False"  x:Name="ButtonPlaylist" Visibility="Visible" HorizontalAlignment="Left" Margin="625,614,0,0" VerticalAlignment="Top" Height="38" Width="48" Content="𝌆"  Background="Black" Foreground="White" Click="playlistButton"  Opacity="0.85" BorderBrush="{x:Null}"/>
+                <Button Focusable="False"  x:Name="ButtonPlaylist_L" Visibility="Visible" HorizontalAlignment="Left" Margin="371,614,0,0" VerticalAlignment="Top" Height="38" Width="48" Content="⏮"  Background="Black" Foreground="White" Click="ChangeTrackButton_L"  Opacity="0.85" BorderBrush="{x:Null}"/>
+                <Button Focusable="False" x:Name="ButtonPlaylist_R" Visibility="Visible" HorizontalAlignment="Left" Margin="417,614,0,0" VerticalAlignment="Top" Height="38" Width="48" Content="⏭"  Background="Black" Foreground="White" Click="ChangeTrackButton_P"  Opacity="0.85" BorderBrush="{x:Null}"/>
+                <Button  x:Name="ButtonPlaylist_DodajFolder" Focusable="False"  Visibility="Visible" HorizontalAlignment="Left" Margin="671,614,0,0" VerticalAlignment="Top" Height="38" Width="48" Content="🖿"  Background="Black" Foreground="White" Click="OpenFolder_Click"  Opacity="0.85" BorderBrush="{x:Null}"/>
+                <Rectangle HorizontalAlignment="Left" Height="36" Margin="464,615,0,0" VerticalAlignment="Top" Width="1" Fill="White"/>
+                <Rectangle HorizontalAlignment="Left" Height="36" Margin="532,615,0,0" VerticalAlignment="Top" Width="1" Fill="White"/>
+                <Rectangle HorizontalAlignment="Left" Height="36" Margin="625,615,0,0" VerticalAlignment="Top" Width="1" Fill="White"/>
+                <Rectangle HorizontalAlignment="Left" Height="36" Margin="718,615,0,0" VerticalAlignment="Top" Width="1" Fill="White"/>
+                <Button Focusable="False" x:Name="ButtonExtend" Visibility="Visible" HorizontalAlignment="Left" Margin="324,614,0,0" VerticalAlignment="Top" Height="38" Width="48" Content="⛚"  Background="Black" Foreground="White" Click="ExtendScreenButton"  Opacity="0.85" BorderBrush="{x:Null}" FontSize="17"/>
+                <Button Focusable="False" x:Name="ButtonExit"  Visibility="Visible" HorizontalAlignment="Left" Margin="278,614,0,0" VerticalAlignment="Top" Height="38" Width="48" Content="⛌"  Background="Black" Foreground="White" Click="CloseApp_Click"  Opacity="0.85" BorderBrush="{x:Null}" FontSize="17"/>
+                <Rectangle HorizontalAlignment="Left" Height="36" Margin="371,615,0,0" VerticalAlignment="Top" Width="1" Fill="White"/>
+                <Rectangle HorizontalAlignment="Left" Height="36" Width="351" Margin="-78,615,0,0" VerticalAlignment="Top" Fill="Black" Opacity="0.85"/>
+                <Rectangle HorizontalAlignment="Left" Height="36" Width="216" Margin="896,615,-78,0" VerticalAlignment="Top" Fill="Black" Opacity="0.85"/>
+                
             </Grid>
 
         </Grid>
