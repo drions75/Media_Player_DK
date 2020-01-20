@@ -135,6 +135,7 @@ namespace Film_Player
         }
         private void PlayTrack()
         {
+            StartBtn.Focus();
             TrackPlay.ToolTip = trackPath;
             Starter.Visibility = Visibility.Hidden;
             Me.Visibility = Visibility.Visible;
@@ -187,14 +188,19 @@ namespace Film_Player
             filename = Path.GetFileName(trackPath);
             Shell32.Folder folder = shell.NameSpace(dirname);
             Shell32.FolderItem folderitem = folder.ParseName(filename);
-            info = filename;
-            for (int i = 10; i <= 340; i++)
+            info = filename + "\n";
+            for (int i = 1; i <= 350; i++)
             {
                 header = folder.GetDetailsOf(null, i);
                 data = folder.GetDetailsOf(folderitem, i);
                 if (!(String.IsNullOrEmpty(header)) && !(String.IsNullOrEmpty(data)))
                 {
-                    info += $"{header}: {data}\r";
+                    if (header == "Wolne miejsce" || header == "Całkowity rozmiar")
+                    {
+                        i++;
+                    }
+                    else
+                        info += $"{header}: {data}\r";
                 }
             }
             return info;
@@ -236,7 +242,7 @@ namespace Film_Player
             Nullable<bool> result;
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.FileName = "";
-            dlg.DefaultExt = ".mov";
+            dlg.DefaultExt = "*.*";
             dlg.Filter = ".mov|*.mov|.wmv|*.wmv|All files (*.*)|*.*";
             dlg.CheckFileExists = true;
             result = dlg.ShowDialog();
@@ -482,6 +488,7 @@ namespace Film_Player
                         tmp.trackPath_1 = trackpaths[i];
                         tmp.nazwa = Path.GetFileName(trackpaths[i]);
                         playlistBox.Items.Add(tmp.nazwa);
+                        
                         l_filmy.Add(tmp);
                         
                     }
@@ -529,12 +536,7 @@ namespace Film_Player
             SpeedPlay.Content = 1;
         }
 
-        private void PlaylistBox_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            ContextMenu cm = this.FindResource("ContextMenu2") as ContextMenu;
-            cm.PlacementTarget = sender as Button;
-            cm.IsOpen = true;
-        }
+       
 
         private void ChangeTrackButton_P(object sender, RoutedEventArgs e)
         {
@@ -596,10 +598,7 @@ namespace Film_Player
                     WindowState = WindowState.Normal;
                     WindowStyle = WindowStyle.SingleBorderWindow;
                 }
-                else
-                {
-                    this.Close();
-                }
+               
                 
             }
 
@@ -611,6 +610,22 @@ namespace Film_Player
             if (e.Key == Key.Left)
             {
                 TurnTrack(-1);
+            }
+        }
+
+        private void Mini_Maxi_Window(object sender, MouseButtonEventArgs e)
+        {
+            if (FlagaFullScreen)
+            {
+                FlagaFullScreen = !FlagaFullScreen;
+                WindowState = WindowState.Normal;
+                WindowStyle = WindowStyle.SingleBorderWindow;
+            }
+            else
+            {
+                FlagaFullScreen = !FlagaFullScreen;
+                WindowState = WindowState.Maximized;
+                WindowStyle = WindowStyle.None;
             }
         }
     }

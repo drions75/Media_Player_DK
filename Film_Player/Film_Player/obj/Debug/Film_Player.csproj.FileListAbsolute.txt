@@ -99,3 +99,14 @@ M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Info.baml
 M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.csproj.CopyComplete
 M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\bin\Debug\FFmpeg.AutoGen.dll
 M:\ProgWin Projekt\Media_Player_DK\Film_Player\Film_Player\bin\Debug\FFmpeg.AutoGen.xml
+C:\Media_Player_DK\Film_Player\Film_Player\bin\Debug\Starter.jpg
+C:\Media_Player_DK\Film_Player\Film_Player\bin\Debug\Microsoft.VisualStudio.Shell.Interop.dll
+C:\Media_Player_DK\Film_Player\Film_Player\bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll
+C:\Media_Player_DK\Film_Player\Film_Player\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.dll
+C:\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Interop.Shell32.dll
+C:\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.csproj.ResolveComReference.cache
+C:\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Info.g.cs
+C:\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Info.baml
+C:\Media_Player_DK\Film_Player\Film_Player\obj\Debug\Film_Player.csproj.CopyComplete
+C:\Media_Player_DK\Film_Player\Film_Player\bin\Debug\FFmpeg.AutoGen.dll
+C:\Media_Player_DK\Film_Player\Film_Player\bin\Debug\FFmpeg.AutoGen.xml

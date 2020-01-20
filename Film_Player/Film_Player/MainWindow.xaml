@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Film_Player"
         
         mc:Ignorable="d"
-        Title="VideoPlayer2020" Height="730" Width="1198"  Drop="Files_Drop" AllowDrop="True" KeyDown="Klawiszologia"   >
+        Title="VideoPlayer2020" Height="730" Width="1198"  Drop="Files_Drop" AllowDrop="True" KeyDown="Klawiszologia" MouseDoubleClick="Mini_Maxi_Window"  >
     <Window.Resources>
 
         <ContextMenu x:Key="ContextMenu">
@@ -22,19 +22,12 @@
                 <MenuItem Header="1.5" Click="OneHalfSpeed_Click" FontStyle="Normal"/>
                 <MenuItem Header="2.0" Click="twoSpeed_Click" FontStyle="Normal"/>
             </MenuItem>
+            <MenuItem Header="Czyść Playliste" Click="MenuItem_Click" />
             <MenuItem Header="Informacje" Height="20" Click="MediaInformation_Click" ></MenuItem>
             <Separator></Separator>
             <MenuItem Header="Wyjdź" Click="CloseApp_Click" FontStyle="Normal" FontWeight="Bold"/>
         </ContextMenu>
-        <ContextMenu x:Key="ContextMenu2">
-            <MenuItem x:Name="PlayMenu2" Header="⏯ Play/Pauza" Height="20" Click="StartBtn_Click"></MenuItem>
-            <MenuItem Header="≡ Playlista" Height="20" Click="playlistButton" ></MenuItem>
-            <MenuItem Header="Otworz _folder..." Click="OpenFolder_Click"/>
-            <Separator></Separator>
-            <MenuItem Header="Czyść Playliste" Click="MenuItem_Click" />
-
-            <MenuItem Header="Wyjdź" Click="CloseApp_Click" FontStyle="Normal" FontWeight="Bold"/>
-        </ContextMenu>
+        
         <Style x:Key="SliderRepeatButton" TargetType="RepeatButton">
             <Setter Property="SnapsToDevicePixels" Value="true" />
             <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -209,7 +202,9 @@
         
         <Grid ZIndex="4">
             <Slider  x:Name="PlaybackSlider" Style="{StaticResource Horizontal_Slider1}" Margin="1,0,0,-8" VerticalAlignment="Bottom"  ValueChanged="PlaybackSlider_ValueChanged" PreviewMouseUp="PlaybackSlider_PreviewMouseUp" PreviewMouseDown="PlaybackSlider_PreviewMouseDown" Background="#00000000" Foreground="#FFB04747" OpacityMask="#FFEE2626" />
-            <ListBox   ItemsSource="{Binding}" Visibility="Hidden" Margin="0,218,0,85" Width="175" Height="250" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Name="playlistBox" MouseDoubleClick="Load_Playlist_Double_Click" Background="Black" BorderBrush="{x:Null}" Foreground="#FFE8E8E8" MouseRightButtonDown="PlaylistBox_MouseRightButtonDown" Opacity="0.35" MouseEnter="PlaylistBox_MouseEnter" MouseLeave="PlaylistBox_MouseLeave"/>
+            <ListBox    Visibility="Hidden" Margin="0,218,0,85" Width="175" Height="250" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Name="playlistBox" MouseDoubleClick="Load_Playlist_Double_Click"  Background="Black" BorderBrush="{x:Null}" Foreground="#FFE8E8E8"  Opacity="0.35" MouseEnter="PlaylistBox_MouseEnter" MouseLeave="PlaylistBox_MouseLeave"/>
+                
+            
              
         </Grid>
         <Grid Margin="0,20,0,0" HorizontalAlignment="Center" ZIndex="1">
